@@ -159,7 +159,9 @@ dependencies {
     compileOnly 'com.github.glitchfiend:TerraBlender-neoforge:1.21-4.0.0.0'
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-
+    implementation "curse.maven:every-compat-628539:7245196"
+    implementation "curse.maven:selene-499980:7238829"
+    implementation "curse.maven:macaws-furniture-359540:7255584"
     //implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // cyanide to debug worldgen, localRuntime configuration won't mark is a dependency
@@ -178,7 +180,6 @@ jar {
                 "Implementation-Version"  : "${version}",
                 "Implementation-Vendor"   : "exampleDev",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs"            : "an_addon.mixins.json"
         ])
     }
 }

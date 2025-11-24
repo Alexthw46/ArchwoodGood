@@ -18,7 +18,7 @@ modId="an_addon" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 version="${file.jarVersion}" #mandatory
  # A display name for the mod
-displayName="Example Ars Nouveau Addon" #mandatory
+displayName="Archwood Good" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 #updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -34,8 +34,6 @@ description='''
 Starbuncles will conquer the world.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[mixins]]
-config="an_addon.mixins.json"
 [[dependencies.an_addon]]
 modId = "minecraft"
 versionRange = "[1.21,)"
