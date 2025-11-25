@@ -1,4 +1,4 @@
-package com.example.an_addon;
+package com.example.archwood_good;
 
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import net.mehvahdjukaar.every_compat.api.SimpleModule;

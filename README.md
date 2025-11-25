@@ -1,6 +1,6 @@
-# Ars-Nouveau-Example-Addon
+# ArchwoodGood
 
-An example repository for making an addon for Ars Nouveau! See the wiki for more info.
+An addon for Ars Nouveau that adds compatibility for archwood blocks! See the wiki for more info.
 
 **Getting Started**
 
