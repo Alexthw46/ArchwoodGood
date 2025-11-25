@@ -1,4 +1,4 @@
-package com.example.archwood_good;
+package com.alexthw.archwood_good;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;

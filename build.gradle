@@ -9,7 +9,7 @@ plugins {
 
 base {
     version = "${minecraft_version}-${mod_version}"
-    group = 'com.hollingsworth.archwood_good' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+    group = 'com.alexthw.archwood_good' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
     archivesBaseName = 'archwood_good'
 }
 

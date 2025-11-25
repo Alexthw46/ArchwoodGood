@@ -1,4 +1,4 @@
-package com.example.archwood_good;
+package com.alexthw.archwood_good;
 
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import net.mehvahdjukaar.every_compat.api.SimpleModule;
@@ -13,28 +13,20 @@ public class ArchwoodGood extends SimpleModule {
         WoodTypeRegistry woodReg = WoodTypeRegistry.INSTANCE;
         woodReg.addSimpleFinder("ars_nouveau", "purple_archwood").planks("archwood_planks");
 
-        woodReg.addSimpleFinder("ars_nouveau", "blue_archwood")
-                .planks("archwood_planks");
+        woodReg.addSimpleFinder("ars_nouveau", "green_archwood").planks("archwood_planks");
 
-        woodReg.addSimpleFinder("ars_nouveau", "green_archwood")
-                .planks("archwood_planks");
+        woodReg.addSimpleFinder("ars_nouveau", "red_archwood").planks("archwood_planks");
 
-        woodReg.addSimpleFinder("ars_nouveau", "red_archwood")
-                .planks("archwood_planks");
-
-        woodReg.addSimpleFinder("ars_elemental", "yellow_archwood")
-                .planks("archwood_planks");
+        woodReg.addSimpleFinder("ars_elemental", "yellow_archwood").planks("archwood_planks");
 
         LeavesTypeRegistry leafReg = LeavesTypeRegistry.INSTANCE;
 
         leafReg.addSimpleFinder("ars_nouveau", "purple_archwood");
-        leafReg.addSimpleFinder("ars_nouveau", "blue_archwood");
         leafReg.addSimpleFinder("ars_nouveau", "green_archwood");
         leafReg.addSimpleFinder("ars_nouveau", "red_archwood");
         leafReg.addSimpleFinder("ars_elemental", "yellow_archwood");
 
         leafReg.addLeavesToWoodMapping("ars_nouveau:purple_archwood", "ars_nouveau:purple_archwood");
-        leafReg.addLeavesToWoodMapping("ars_nouveau:blue_archwood", "ars_nouveau:blue_archwood");
         leafReg.addLeavesToWoodMapping("ars_nouveau:green_archwood", "ars_nouveau:green_archwood");
         leafReg.addLeavesToWoodMapping("ars_nouveau:red_archwood", "ars_nouveau:red_archwood");
         leafReg.addLeavesToWoodMapping("ars_elemental:yellow_archwood", "ars_elemental:yellow_archwood");
