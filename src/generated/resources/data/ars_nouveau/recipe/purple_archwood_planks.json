@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ars_nouveau:purple_archwood_log"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "ars_nouveau:purple_archwood_planks"
+  }
+}
