@@ -10,6 +10,7 @@ public class ArchwoodGoodMod {
     public static final String MODID = "archwood_good";
 
     public ArchwoodGoodMod(IEventBus modEventBus, ModContainer modContainer) {
+        Registry.init(modEventBus);
         ArsNouveauRegistry.woodGoodsSetup();
     }
 

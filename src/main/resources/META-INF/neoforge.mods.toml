@@ -45,3 +45,11 @@ modId = "ars_nouveau"
 versionRange = "[1.21.1-5.4,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.archwood_good]]
+modId = "ars_elemental"
+type = "optional"
+reason = "Adds flashing archwood compat"
+versionRange = "[0.7.0,)"
+ordering="AFTER"
+side="BOTH"
