@@ -112,6 +112,9 @@ repositories {
     }
 
     mavenLocal()
+
+    maven { url = "https://registry.somethingcatchy.net/repository/maven-releases/" } // Moonlight & EveryComp
+
     maven {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
@@ -151,19 +154,30 @@ repositories {
 
 dependencies {
 
+    //+ REQUIRED MODS
     implementation("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_version}")
     implementation ("com.alexthw.ars_elemental:ars_elemental-${minecraft_version}:${elemental_version}")
+//    implementation "curse.maven:every-compat-628539:7245196"
+//    implementation "curse.maven:selene-499980:7238829"
+
+    implementation("net.mehvahdjukaar:everycomp-neoforge:${everycomp_version}:neoforge") {
+        transitive = false
+    }
+    implementation("net.mehvahdjukaar:moonlight-neoforge:${moonlight_version}:neoforge") {
+        transitive = false
+    }
 
     // only need the compileOnly, the runtime dependency is handled by Ars Nouveau
+        // TOOLS
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+        // MAVENS
     compileOnly "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
     compileOnly "vazkii.patchouli:Patchouli:1.21-${patchouli_version}"
     compileOnly 'com.github.glitchfiend:TerraBlender-neoforge:1.21-4.0.0.0'
     compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
-    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    implementation "curse.maven:every-compat-628539:7245196"
-    implementation "curse.maven:selene-499980:7238829"
-    implementation "curse.maven:macaws-furniture-359540:7255584"
 
+        // Curseforge - SUPPORTED MODS
+    implementation "curse.maven:macaws-furniture-359540:7255584"
     implementation "curse.maven:bibliocraft-legacy-1122260:7055118"
     implementation "curse.maven:another-furniture-610492:7144788"
     implementation "curse.maven:farmers-delight-398521:6917256"
