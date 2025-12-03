@@ -20,7 +20,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -31,8 +30,6 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
-
-import static alexthw.ars_elemental.registry.ModItems.GROUND_BLOSSOM;
 
 @EventBusSubscriber(modid = ArchwoodGoodMod.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Datagen {
@@ -117,11 +114,11 @@ public class Datagen {
             protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
                 shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get()).requires(Ingredient.of(archwoodPlanks)).save(recipeOutput);
 
-                shapelessBuilder(Registry.BLUE_ARCHWOOD_PLANK).requires(BlockRegistry.CASCADING_LOG.get()).save(recipeOutput);
-                shapelessBuilder(Registry.RED_ARCHWOOD_PLANK).requires(BlockRegistry.BLAZING_LOG.get()).save(recipeOutput);
-                shapelessBuilder(Registry.GREEN_ARCHWOOD_PLANK).requires(BlockRegistry.FLOURISHING_LOG.get()).save(recipeOutput);
-                shapelessBuilder(Registry.PURPLE_ARCHWOOD_PLANK).requires(BlockRegistry.VEXING_LOG.get()).save(recipeOutput);
-                shapelessBuilder(ElementalModule.YELLOW_ARCHWOOD_PLANK.get()).requires(ModItems.FLASHING_ARCHWOOD_LOG.get()).save(recipeOutput);
+                shapelessBuilder(Registry.BLUE_ARCHWOOD_PLANK, 4).requires(BlockRegistry.CASCADING_LOG.get()).save(recipeOutput);
+                shapelessBuilder(Registry.RED_ARCHWOOD_PLANK,4).requires(BlockRegistry.BLAZING_LOG.get()).save(recipeOutput);
+                shapelessBuilder(Registry.GREEN_ARCHWOOD_PLANK,4).requires(BlockRegistry.FLOURISHING_LOG.get()).save(recipeOutput);
+                shapelessBuilder(Registry.PURPLE_ARCHWOOD_PLANK,4).requires(BlockRegistry.VEXING_LOG.get()).save(recipeOutput);
+                shapelessBuilder(ElementalModule.YELLOW_ARCHWOOD_PLANK.get(),4).requires(ModItems.FLASHING_ARCHWOOD_LOG.get()).save(recipeOutput);
 
             }
 
