@@ -1,34 +1,23 @@
 package com.alexthw.archwood_good;
 
-import com.hollingsworth.arsnouveau.ArsNouveau;
-import net.mehvahdjukaar.every_compat.api.SimpleModule;
-import net.mehvahdjukaar.moonlight.api.set.wood.WoodTypeRegistry;
+import com.alexthw.archwood_good.integration.CompatRegistry;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
 
-public class ArchwoodGood extends SimpleModule {
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(ArchwoodGood.MODID)
+public class ArchwoodGood {
+    public static final String MODID = "archwood_good";
 
-    public ArchwoodGood(String modid) {
-        super(modid, "awg", ArsNouveau.MODID);
-
-        WoodTypeRegistry woodReg = WoodTypeRegistry.INSTANCE;
-        woodReg.addRemover(ArsNouveau.prefix("archwood"));
-//        woodReg.addSimpleFinder("ars_nouveau", "purple_archwood").planks("archwood_planks");
-//
-//        woodReg.addSimpleFinder("ars_nouveau", "green_archwood").planks("archwood_planks");
-//
-//        woodReg.addSimpleFinder("ars_nouveau", "red_archwood").planks("archwood_planks");
-//
-//        woodReg.addSimpleFinder("ars_elemental", "yellow_archwood").planks("archwood_planks");
-//
-//        LeavesTypeRegistry leafReg = LeavesTypeRegistry.INSTANCE;
-//
-//        leafReg.addSimpleFinder("ars_nouveau", "purple_archwood");
-//        leafReg.addSimpleFinder("ars_nouveau", "green_archwood");
-//        leafReg.addSimpleFinder("ars_nouveau", "red_archwood");
-//        leafReg.addSimpleFinder("ars_elemental", "yellow_archwood");
-//
-//        leafReg.addLeavesToWoodMapping("ars_nouveau:purple_archwood", "ars_nouveau:purple_archwood");
-//        leafReg.addLeavesToWoodMapping("ars_nouveau:green_archwood", "ars_nouveau:green_archwood");
-//        leafReg.addLeavesToWoodMapping("ars_nouveau:red_archwood", "ars_nouveau:red_archwood");
-//        leafReg.addLeavesToWoodMapping("ars_elemental:yellow_archwood", "ars_elemental:yellow_archwood");
+    public ArchwoodGood(IEventBus modEventBus, ModContainer modContainer) {
+        Registry.init(modEventBus);
+        CompatRegistry.init();
     }
+
+    public static ResourceLocation res(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    }
+
 }
