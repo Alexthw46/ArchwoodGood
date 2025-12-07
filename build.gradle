@@ -157,7 +157,7 @@ repositories {
 dependencies {
 
     //+ REQUIRED MODS
-    implementation("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_version}")
+    implementation("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${nouveau_version}")
     implementation ("com.alexthw.ars_elemental:ars_elemental-${minecraft_version}:${elemental_version}")
 //    implementation "curse.maven:every-integration-628539:7245196"
 //    implementation "curse.maven:selene-499980:7238829"
@@ -231,6 +231,9 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
