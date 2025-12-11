@@ -1,7 +1,7 @@
 package com.alexthw.archwood_good.datagen;
 
 import alexthw.ars_elemental.registry.ModItems;
-import com.alexthw.archwood_good.Registry;
+import com.alexthw.archwood_good.ContentRegistry;
 import com.alexthw.archwood_good.integration.ElementalModule;
 import com.hollingsworth.arsnouveau.setup.registry.BlockRegistry;
 import com.hollingsworth.arsnouveau.setup.registry.ItemsRegistry;
@@ -24,24 +24,24 @@ public class RecipeDataGen extends RecipeProvider {
 
     protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
 //                shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get()).requires(Ingredient.of(archwoodPlanks)).save(recipeOutput); //TODO: need an item to bleach colored planks into plain planks
-        shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get(), 4).requires(Registry.ARCHWOOD_LOG.get()).save(recipeOutput);
+        shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get(), 4).requires(ContentRegistry.FADING_ARCHWOOD_LOG.get()).save(recipeOutput);
 
-        shapelessBuilder(Registry.BLUE_ARCHWOOD_PLANK, 4).requires(BlockRegistry.CASCADING_LOG.get()).save(recipeOutput);
-        shapelessBuilder(Registry.RED_ARCHWOOD_PLANK, 4).requires(BlockRegistry.BLAZING_LOG.get()).save(recipeOutput);
-        shapelessBuilder(Registry.GREEN_ARCHWOOD_PLANK, 4).requires(BlockRegistry.FLOURISHING_LOG.get()).save(recipeOutput);
-        shapelessBuilder(Registry.PURPLE_ARCHWOOD_PLANK, 4).requires(BlockRegistry.VEXING_LOG.get()).save(recipeOutput);
+        shapelessBuilder(ContentRegistry.BLUE_ARCHWOOD_PLANK, 4).requires(BlockRegistry.CASCADING_LOG.get()).save(recipeOutput);
+        shapelessBuilder(ContentRegistry.RED_ARCHWOOD_PLANK, 4).requires(BlockRegistry.BLAZING_LOG.get()).save(recipeOutput);
+        shapelessBuilder(ContentRegistry.GREEN_ARCHWOOD_PLANK, 4).requires(BlockRegistry.FLOURISHING_LOG.get()).save(recipeOutput);
+        shapelessBuilder(ContentRegistry.PURPLE_ARCHWOOD_PLANK, 4).requires(BlockRegistry.VEXING_LOG.get()).save(recipeOutput);
         shapelessBuilder(ElementalModule.YELLOW_ARCHWOOD_PLANK.get(), 4).requires(ModItems.FLASHING_ARCHWOOD_LOG.get()).save(recipeOutput);
 
-        shapedWoodenStairs(recipeOutput, Registry.BLUE_ARCHWOOD_STAIRS, Registry.BLUE_ARCHWOOD_PLANK);
-        shapedWoodenStairs(recipeOutput, Registry.RED_ARCHWOOD_STAIRS, Registry.RED_ARCHWOOD_PLANK);
-        shapedWoodenStairs(recipeOutput, Registry.GREEN_ARCHWOOD_STAIRS, Registry.GREEN_ARCHWOOD_PLANK);
-        shapedWoodenStairs(recipeOutput, Registry.PURPLE_ARCHWOOD_STAIRS, Registry.PURPLE_ARCHWOOD_PLANK);
+        shapedWoodenStairs(recipeOutput, ContentRegistry.BLUE_ARCHWOOD_STAIRS, ContentRegistry.BLUE_ARCHWOOD_PLANK);
+        shapedWoodenStairs(recipeOutput, ContentRegistry.RED_ARCHWOOD_STAIRS, ContentRegistry.RED_ARCHWOOD_PLANK);
+        shapedWoodenStairs(recipeOutput, ContentRegistry.GREEN_ARCHWOOD_STAIRS, ContentRegistry.GREEN_ARCHWOOD_PLANK);
+        shapedWoodenStairs(recipeOutput, ContentRegistry.PURPLE_ARCHWOOD_STAIRS, ContentRegistry.PURPLE_ARCHWOOD_PLANK);
         shapedWoodenStairs(recipeOutput, ElementalModule.YELLOW_ARCHWOOD_STAIRS.get(), ElementalModule.YELLOW_ARCHWOOD_PLANK.get());
 
-        shapedWoodenSlab(recipeOutput, Registry.BLUE_ARCHWOOD_SLAB, Registry.BLUE_ARCHWOOD_PLANK);
-        shapedWoodenSlab(recipeOutput, Registry.RED_ARCHWOOD_SLAB, Registry.RED_ARCHWOOD_PLANK);
-        shapedWoodenSlab(recipeOutput, Registry.GREEN_ARCHWOOD_SLAB, Registry.GREEN_ARCHWOOD_PLANK);
-        shapedWoodenSlab(recipeOutput, Registry.PURPLE_ARCHWOOD_SLAB, Registry.PURPLE_ARCHWOOD_PLANK);
+        shapedWoodenSlab(recipeOutput, ContentRegistry.BLUE_ARCHWOOD_SLAB, ContentRegistry.BLUE_ARCHWOOD_PLANK);
+        shapedWoodenSlab(recipeOutput, ContentRegistry.RED_ARCHWOOD_SLAB, ContentRegistry.RED_ARCHWOOD_PLANK);
+        shapedWoodenSlab(recipeOutput, ContentRegistry.GREEN_ARCHWOOD_SLAB, ContentRegistry.GREEN_ARCHWOOD_PLANK);
+        shapedWoodenSlab(recipeOutput, ContentRegistry.PURPLE_ARCHWOOD_SLAB, ContentRegistry.PURPLE_ARCHWOOD_PLANK);
         shapedWoodenSlab(recipeOutput, ElementalModule.YELLOW_ARCHWOOD_SLAB.get(), ElementalModule.YELLOW_ARCHWOOD_PLANK.get());
 
     }
