@@ -2,23 +2,18 @@ package com.alexthw.archwood_good.integration;
 
 import alexthw.ars_elemental.registry.ModItems;
 import com.alexthw.archwood_good.common.block.StrippablePlanks;
-import com.hollingsworth.arsnouveau.common.block.ModBlock;
-import com.hollingsworth.arsnouveau.setup.registry.BlockRegistry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.function.Supplier;
 
-import static com.alexthw.archwood_good.Registry.WOOD_PROP;
+import static com.alexthw.archwood_good.ContentRegistry.WOOD_PROP;
 import static com.hollingsworth.arsnouveau.setup.registry.BlockRegistry.ARCHWOOD_PLANK;
-import static com.hollingsworth.arsnouveau.setup.registry.BlockRegistry.LOG_PROP;
 
 public class ElementalModule {
 
