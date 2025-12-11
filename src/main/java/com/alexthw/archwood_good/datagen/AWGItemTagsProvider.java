@@ -1,10 +1,8 @@
 package com.alexthw.archwood_good.datagen;
 
-import alexthw.ars_elemental.ArsElemental;
 import com.alexthw.archwood_good.ArchwoodGood;
-import com.alexthw.archwood_good.Registry;
+import com.alexthw.archwood_good.ContentRegistry;
 import com.alexthw.archwood_good.integration.ElementalModule;
-import com.hollingsworth.arsnouveau.ArsNouveau;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -29,10 +27,13 @@ public class AWGItemTagsProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.@NotNull Provider provider) {
         copy(BlockTags.PLANKS, ItemTags.PLANKS);
         tag(archwoodPlanks).add(
-                Registry.BLUE_ARCHWOOD_PLANK.get().asItem(),
-                Registry.RED_ARCHWOOD_PLANK.get().asItem(),
-                Registry.GREEN_ARCHWOOD_PLANK.get().asItem(),
-                Registry.PURPLE_ARCHWOOD_PLANK.get().asItem()
+                ContentRegistry.BLUE_ARCHWOOD_PLANK.get().asItem(),
+                ContentRegistry.RED_ARCHWOOD_PLANK.get().asItem(),
+                ContentRegistry.GREEN_ARCHWOOD_PLANK.get().asItem(),
+                ContentRegistry.PURPLE_ARCHWOOD_PLANK.get().asItem(),
+
+                ContentRegistry.ORANGE_ARCHWOOD_PLANK.get().asItem(),
+                ContentRegistry.WHITE_ARCHWOOD_PLANK.get().asItem()
         ).addOptional(ElementalModule.YELLOW_ARCHWOOD_PLANK.getId());
     }
 }
