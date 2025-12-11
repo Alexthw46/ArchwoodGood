@@ -11,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -37,23 +36,23 @@ public class Datagen {
         gen.addProvider(event.includeServer(), blockTagsProvider);
         gen.addProvider(event.includeServer(), new AWGItemTagsProvider(gen, provider, blockTagsProvider, existingFileHelper));
         gen.addProvider(event.includeServer(), new RecipeDataGen(output, provider));
+        gen.addProvider(event.includeServer(), new AWGLootTables(gen, provider));
 
+        AWGBlockStatesDatagen.gatherDataForAWG(event, gen, existingFileHelper, output);
         AWGBlockStatesDatagen.gatherDataForAN(event, gen, existingFileHelper, output);
         AWGBlockStatesDatagen.gatherDataForAE(event, gen, existingFileHelper, output);
 
         /// Work In Progress - Xel'Bayria
-        /*
-        gen.addProvider(event.includeServer(), new AWGPlacedFeatureTagsProvider(output, provider, existingFileHelper));
+//        gen.addProvider(event.includeServer(), new AWGPlacedFeatureTagsProvider(output, provider, existingFileHelper));
 
 //        gen.addProvider(event.includeServer(), new AWGWorldgenProvider(output, provider));
 //        gen.addProvider(event.includeServer(), new AWGBiomeTagsProvider(output, provider, existingFileHelper));
 
         /// ─────────────────────────────── Worldprovider ───────────────────────────────
-        DatapackBuiltinEntriesProvider datapackProvider = new AWGWorldgenProvider(output, provider);
-        event.getGenerator().addProvider(event.includeServer(), datapackProvider);
-        CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
-        event.getGenerator().addProvider(event.includeServer(), new AWGBiomeTagProvider(output, lookupProvider, existingFileHelper));
-*/
+//        DatapackBuiltinEntriesProvider datapackProvider = new AWGWorldgenProvider(output, provider);
+//        event.getGenerator().addProvider(event.includeServer(), datapackProvider);
+//        CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
+//        event.getGenerator().addProvider(event.includeServer(), new AWGBiomeTagProvider(output, lookupProvider, existingFileHelper));
 
     }
 
