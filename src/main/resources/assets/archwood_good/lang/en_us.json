@@ -1,13 +1,60 @@
 {
-  "block.ars_nouveau.archwood_log": "Archwood Log",
+  "block.ars_nouveau.archwood_log": "Fading Archwood Log",
+  "block.ars_nouveau.archwood_planks": "Fading Archwood Planks",
+  "block.ars_nouveau.archwood_leaves": "Fading Archwood Leaves",
+  "block.ars_nouveau.archwood_sapling": "Fading Archwood Sapling",
+
+  "block.archwood_good.white_archwood_log": "Blinding Archwood Log",
+  "block.archwood_good.stripped_white_archwood_log": "Stripped Blinding Archwood Log",
+  "block.archwood_good.orange_archwood_log": "Dawning Archwood Log",
+  "block.archwood_good.stripped_orange_archwood_log": "Stripped Dawning Archwood Log",
+
+  "block.archwood_good.white_archwood_wood": "Blinding Archwood Wood",
+  "block.archwood_good.stripped_white_archwood_wood": "Stripped Blinding Archwood Wood",
+  "block.archwood_good.orange_archwood_wood": "Dawning Archwood Wood",
+  "block.archwood_good.stripped_orange_archwood_wood": "Stripped Dawning Archwood Wood",
+
   "block.ars_nouveau.blue_archwood_planks": "Cascading Archwood Planks",
   "block.ars_nouveau.red_archwood_planks": "Blazing Archwood Planks",
   "block.ars_nouveau.green_archwood_planks": "Flourishing Archwood Planks",
   "block.ars_nouveau.purple_archwood_planks": "Vexing Archwood Planks",
   "block.ars_elemental.yellow_archwood_planks": "Flashing Archwood Planks",
+  "block.archwood_good.orange_archwood_planks": "Dawning Archwood Planks",
+  "block.archwood_good.white_archwood_planks": "Blinding Archwood Planks",
+
+  "block.ars_nouveau.red_archwood_slab": "Blazing Archwood Slab",
+  "block.ars_nouveau.green_archwood_slab": "Flourishing Archwood Slab",
+  "block.ars_nouveau.purple_archwood_slab": "Vexing Archwood Slab",
+  "block.ars_elemental.yellow_archwood_slab": "Flashing Archwood Slab",
+  "block.archwood_good.orange_archwood_slab": "Dawning Archwood Slab",
+  "block.archwood_good.white_archwood_slab": "Blinding Archwood Slab",
+
+  "block.ars_nouveau.red_archwood_stairs": "Blazing Archwood Stairs",
+  "block.ars_nouveau.green_archwood_stairs": "Flourishing Archwood Stairs",
+  "block.ars_nouveau.purple_archwood_stairs": "Vexing Archwood Stairs",
+  "block.ars_elemental.yellow_archwood_stairs": "Flashing Archwood Stairs",
+  "block.archwood_good.orange_archwood_stairs": "Dawning Archwood Stairs",
+  "block.archwood_good.white_archwood_stairs": "Blinding Archwood Stairs",
+
   "item.ars_nouveau.blue_archwood_planks": "Cascading Archwood Planks",
   "item.ars_nouveau.red_archwood_planks": "Blazing Archwood Planks",
   "item.ars_nouveau.green_archwood_planks": "Flourishing Archwood Planks",
   "item.ars_nouveau.purple_archwood_planks": "Vexing Archwood Planks",
-  "item.ars_elemental.yellow_archwood_planks": "Flashing Archwood Planks"
+  "item.ars_elemental.yellow_archwood_planks": "Flashing Archwood Planks",
+  "item.archwood_good.orange_archwood_planks": "Dawning Archwood Planks",
+  "item.archwood_good.white_archwood_planks": "Blinding Archwood Planks",
+
+  "item.ars_nouveau.red_archwood_slab": "Blazing Archwood Slab",
+  "item.ars_nouveau.green_archwood_slab": "Flourishing Archwood Slab",
+  "item.ars_nouveau.purple_archwood_slab": "Vexing Archwood Slab",
+  "item.ars_elemental.yellow_archwood_slab": "Flashing Archwood Slab",
+  "item.archwood_good.orange_archwood_slab": "Dawning Archwood Slab",
+  "item.archwood_good.white_archwood_slab": "Blinding Archwood Slab",
+
+  "item.ars_nouveau.red_archwood_stairs": "Blazing Archwood Stairs",
+  "item.ars_nouveau.green_archwood_stairs": "Flourishing Archwood Stairs",
+  "item.ars_nouveau.purple_archwood_stairs": "Vexing Archwood Stairs",
+  "item.ars_elemental.yellow_archwood_stairs": "Flashing Archwood Stairs",
+  "item.archwood_good.orange_archwood_stairs": "Dawning Archwood Stairs",
+  "item.archwood_good.white_archwood_stairs": "Blinding Archwood Stairs"
 }

@@ -37,6 +37,12 @@ public class ContentRegistry {
     public static BlockRegistryWrapper<StrippableLog> FADING_ARCHWOOD_LOG = registerBlockAndItem("archwood_log", () ->
             new StrippableLog(WOOD_PROP, () -> STRIPPED_FADING_ARCHWOOD_LOG.get()));
 
+    public static BlockRegistryWrapper<RotatedPillarBlock> STRIPPED_FADING_ARCHWOOD_WOOD = registerBlockAndItem("stripped_archwood_wood", () ->
+            new RotatedPillarBlock(WOOD_PROP));
+
+    public static BlockRegistryWrapper<StrippableLog> FADING_ARCHWOOD_WOOD = registerBlockAndItem("archwood_wood", () ->
+            new StrippableLog(WOOD_PROP, () -> STRIPPED_FADING_ARCHWOOD_WOOD.get()));
+
     public static BlockRegistryWrapper<SaplingBlock> FADING_ARCHWOOD_SAPLING = registerBlockAndItem("archwood_sapling", () ->
             new SaplingBlock(MagicTree.getGrower("archwood_tree", AWGWorldgenRegistry.CONFIGURED_FADING_TREE), SAP_PROP));
 
@@ -120,6 +126,20 @@ public class ContentRegistry {
     public static DeferredHolder<Block, ? extends Block> WHITE_ARCHWOOD_LOG = addBlockForAWG("white_archwood_log", () ->
             new StrippableLog(WOOD_PROP, () -> STRIPPED_ORANGE_ARCHWOOD_LOG.get()));
 
+    /// ──────────────────────────────── Stripped Woods ─────────────────────────────────
+    public static DeferredHolder<Block, ? extends Block> STRIPPED_ORANGE_ARCHWOOD_WOOD = addBlockForAWG("stripped_orange_archwood_wood", () ->
+            new RotatedPillarBlock(WOOD_PROP));
+
+    public static DeferredHolder<Block, ? extends Block> STRIPPED_WHITE_ARCHWOOD_WOOD = addBlockForAWG("stripped_white_archwood_wood", () ->
+            new RotatedPillarBlock(WOOD_PROP));
+
+    /// ───────────────────────────────────── Woods ─────────────────────────────────────
+    public static DeferredHolder<Block, ? extends Block> ORANGE_ARCHWOOD_WOOD = addBlockForAWG("orange_archwood_wood", () ->
+            new StrippableLog(WOOD_PROP, () -> STRIPPED_ORANGE_ARCHWOOD_WOOD.get()));
+
+    public static DeferredHolder<Block, ? extends Block> WHITE_ARCHWOOD_WOOD = addBlockForAWG("white_archwood_wood", () ->
+            new StrippableLog(WOOD_PROP, () -> STRIPPED_WHITE_ARCHWOOD_WOOD.get()));
+
     /// ─────────────────────────────────── Saplings ────────────────────────────────────
     // Archwood Good
     public static BlockRegistryWrapper<SaplingBlock> ORANGE_ARCHWOOD_SAPLING = registerBlockAndItemForAWG("orange_archwood_sapling", () ->
@@ -137,6 +157,9 @@ public class ContentRegistry {
             createLeavesBlock(MapColor.SNOW));
 
 
+    //      ┌──────────────────────────────────────────────────────────┐
+    //      │                           Init                           │
+    //      └──────────────────────────────────────────────────────────┘
     public static void init(IEventBus bus) {
         // if Ars Elemental is loaded, register the blocks
         if (ModList.get().isLoaded("ars_elemental")) {

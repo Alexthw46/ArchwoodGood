@@ -74,12 +74,24 @@ public class AWGLootTables extends LootTableProvider {
                 // Ars Nouevau & Ars Elemental
                 if (woodTypeId.matches("\\("+ ArsNouveau.MODID +"|"+ ArsElemental.MODID + "\\):.*")) {
                     Block planks = woodType.planks;
+                    Block log = woodType.log;
+                    Block stripped_log = woodType.getBlockOfThis(VanillaWoodChildKeys.STRIPPED_LOG);
+                    Block wood = woodType.getBlockOfThis(VanillaWoodChildKeys.WOOD);
+                    Block stripped_wood = woodType.getBlockOfThis(VanillaWoodChildKeys.STRIPPED_WOOD);
                     Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
                     Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
 
                     if (Objects.nonNull(planks)) registerDropSelf(planks);
                     if (Objects.nonNull(slab)) registerSlabItemTable(slab);
                     if (Objects.nonNull(stairs)) registerDropSelf(stairs);
+
+                    // Only fading_archwood need the loot_tables
+                    if (woodTypeId.matches(ArsNouveau.MODID + ":archwood")) {
+                        if (Objects.nonNull(log)) registerDropSelf(log);
+                        if (Objects.nonNull(stripped_log)) registerDropSelf(stripped_log);
+                        if (Objects.nonNull(wood)) registerDropSelf(wood);
+                        if (Objects.nonNull(stripped_wood)) registerDropSelf(stripped_wood);
+                    }
 
                 }
             }
