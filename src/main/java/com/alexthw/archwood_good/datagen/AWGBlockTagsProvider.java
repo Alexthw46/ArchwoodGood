@@ -11,6 +11,7 @@ import net.mehvahdjukaar.moonlight.api.util.Utils;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -21,6 +22,8 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class AWGBlockTagsProvider extends BlockTagsProvider {
+
+    public static final TagKey<Block> FADING_ARCHWOOD_LOG_TAG = BlockTags.create(ArsNouveau.prefix("archwood_logs"));
 
     public AWGBlockTagsProvider(DataGenerator gen, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
         super(gen.getPackOutput(), provider, ArchwoodGood.MODID, existingFileHelper);
@@ -43,6 +46,10 @@ public class AWGBlockTagsProvider extends BlockTagsProvider {
                 Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
                 Block leaves = woodType.getBlockOfThis(VanillaWoodChildKeys.LEAVES);
                 Block sapling = woodType.getBlockOfThis(VanillaWoodChildKeys.SAPLING);
+
+                // Tag Key
+                TagKey<Block> logTag = BlockTags.create(Utils.getID(log).withSuffix("s"));
+                this.tag(logTag).add(log, stripped_log, wood, stripped_wood);
 
                 this.tag(BlockTags.PLANKS).add(planks);
 
@@ -110,6 +117,12 @@ public class AWGBlockTagsProvider extends BlockTagsProvider {
         }
 
         /// FADING_ARCHWOOD
+        this.tag(FADING_ARCHWOOD_LOG_TAG).add(
+                ContentRegistry.FADING_ARCHWOOD_LOG.get(),
+                ContentRegistry.STRIPPED_FADING_ARCHWOOD_LOG.get(),
+                ContentRegistry.FADING_ARCHWOOD_WOOD.get(),
+                ContentRegistry.STRIPPED_FADING_ARCHWOOD_WOOD.get()
+        );
         logsTag(
                 ContentRegistry.FADING_ARCHWOOD_LOG.get(),
                 ContentRegistry.STRIPPED_FADING_ARCHWOOD_LOG.get()

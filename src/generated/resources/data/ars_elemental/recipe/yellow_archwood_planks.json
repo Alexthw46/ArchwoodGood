@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "ars_elemental:yellow_archwood_log"
+      "tag": "ars_elemental:yellow_archwood_logs"
     }
   ],
   "result": {

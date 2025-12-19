@@ -15,11 +15,14 @@ public class ArchwoodGood {
     public static final String MODID = "archwood_good";
     public static final Logger LOGGER = LogManager.getLogger("Archwood Good");
 
-    public ArchwoodGood(IEventBus bus) {
-        BLOCKS.register(bus);
-        ITEMS.register(bus);
+    public ArchwoodGood(IEventBus eventBus) {
+        BLOCKS.register(eventBus);
+        ITEMS.register(eventBus);
 
-        ContentRegistry.init(bus);
+        ContentRegistry.init(eventBus);
+        ItemRegistry.init();
+
+        ContentSetup.registers(eventBus);
     }
 
     public static ResourceLocation res(String path) {

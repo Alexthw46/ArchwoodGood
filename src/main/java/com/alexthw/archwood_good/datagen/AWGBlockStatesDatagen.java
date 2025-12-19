@@ -3,7 +3,6 @@ package com.alexthw.archwood_good.datagen;
 import alexthw.ars_elemental.ArsElemental;
 import com.alexthw.archwood_good.ArchwoodGood;
 import com.alexthw.archwood_good.ContentRegistry;
-import com.alexthw.archwood_good.integration.ElementalModule;
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.common.datagen.BlockStatesDatagen;
 import net.mehvahdjukaar.moonlight.api.set.wood.VanillaWoodChildKeys;
@@ -11,13 +10,10 @@ import net.mehvahdjukaar.moonlight.api.set.wood.WoodType;
 import net.mehvahdjukaar.moonlight.api.set.wood.WoodTypeRegistry;
 import net.mehvahdjukaar.moonlight.api.util.Utils;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -44,10 +40,15 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
                         Block stripped_log = woodType.getBlockOfThis(VanillaWoodChildKeys.STRIPPED_LOG);
                         Block wood = woodType.getBlockOfThis(VanillaWoodChildKeys.WOOD);
                         Block stripped_wood = woodType.getBlockOfThis(VanillaWoodChildKeys.STRIPPED_WOOD);
+                        Block leaves = woodType.getBlockOfThis(VanillaWoodChildKeys.LEAVES);
                         Block planks = woodType.planks;
                         Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
                         Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
                         Block sapling = woodType.getBlockOfThis(VanillaWoodChildKeys.SAPLING);
+                        Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                        Block wallSign = woodType.getBlockOfThis(VanillaWoodChildKeys.WALL_SIGN);
+                        Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
+                        Block wallHangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.WALL_HANGING_SIGN);
 
                         generateLogFiles(log, models(), this);
                         if (Objects.nonNull(stripped_log))
@@ -72,6 +73,13 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
                         stairsBlock((StairBlock) stairs,
                                 Utils.getID(planks).withPrefix("block/")
                         );
+
+                        if (Objects.nonNull(leaves))
+                            simpleBlock(leaves);
+                        if (Objects.nonNull(sign))
+                            signBlock((StandingSignBlock) sign, (WallSignBlock) wallSign, Utils.getID(planks).withPrefix("block/"));
+                        if (Objects.nonNull(hangingSign))
+                            hangingSignBlock((CeilingHangingSignBlock) hangingSign, (WallHangingSignBlock) wallHangingSign, Utils.getID(planks).withPrefix("block/"));
                     }
 
                 }
@@ -91,32 +99,46 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
                         Block stripped_log = woodType.getBlockOfThis(VanillaWoodChildKeys.STRIPPED_LOG);
                         Block wood = woodType.getBlockOfThis(VanillaWoodChildKeys.WOOD);
                         Block stripped_wood = woodType.getBlockOfThis(VanillaWoodChildKeys.STRIPPED_WOOD);
+                        Block leaves = woodType.getBlockOfThis(VanillaWoodChildKeys.LEAVES);
                         Block planks = woodType.planks;
                         Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
                         Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
                         Block sapling = woodType.getBlockOfThis(VanillaWoodChildKeys.SAPLING);
+                        Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                        Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
 
                         simpleBlockItem(planks);
 
                         // LOG
-                        getBuilder(Utils.getID(log).toString()).parent(getUncheckedModel(woodType.getNamespace(), Utils.getID(log).getPath()));
+                        getBuilder(Utils.getID(log).toString()).parent(getUncheckedModel(Utils.getID(log)));
                         if (Objects.nonNull(stripped_log))
-                            getBuilder(Utils.getID(stripped_log).toString()).parent(getUncheckedModel(woodType.getNamespace(), Utils.getID(stripped_log).getPath()));
+                            getBuilder(Utils.getID(stripped_log).toString()).parent(getUncheckedModel(Utils.getID(stripped_log)));
 
                         // WOOD
                         if (Objects.nonNull(wood))
-                            getBuilder(Utils.getID(wood).toString()).parent(getUncheckedModel(woodType.getNamespace(), Utils.getID(wood).getPath()));
+                            getBuilder(Utils.getID(wood).toString()).parent(getUncheckedModel(Utils.getID(wood)));
                         if (Objects.nonNull(stripped_wood))
-                            getBuilder(Utils.getID(stripped_wood).toString()).parent(getUncheckedModel(woodType.getNamespace(), Utils.getID(stripped_wood).getPath()));
+                            getBuilder(Utils.getID(stripped_wood).toString()).parent(getUncheckedModel(Utils.getID(stripped_wood)));
+
+                        // LEAVES
+                        if (Objects.nonNull(leaves))
+                            simpleBlockItem(leaves);
 
                         // CHILDREN
                         if (Objects.nonNull(slab))
-                            getBuilder(Utils.getID(slab).toString()).parent(getUncheckedModel(woodType.getNamespace(), Utils.getID(slab).getPath()));
+                            getBuilder(Utils.getID(slab).toString()).parent(getUncheckedModel(Utils.getID(slab)));
                         if (Objects.nonNull(stairs))
-                            getBuilder(Utils.getID(stairs).toString()).parent(getUncheckedModel(woodType.getNamespace(), Utils.getID(stairs).getPath()));
+                            getBuilder(Utils.getID(stairs).toString()).parent(getUncheckedModel(Utils.getID(stairs)));
                         if (Objects.nonNull(sapling))
                             getBuilder(Utils.getID(sapling).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
                                     .texture("layer0", Utils.getID(sapling).withPrefix("block/"));
+                        if (Objects.nonNull(sign))
+                            getBuilder(Utils.getID(sign).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                                    .texture("layer0", Utils.getID(sign).withPrefix("item/"));
+                        if (Objects.nonNull(hangingSign))
+                            getBuilder(Utils.getID(hangingSign).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                                    .texture("layer0", Utils.getID(hangingSign).withPrefix("item/"));
+
                     }
 
                 }
@@ -140,35 +162,55 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
             @Override
             protected void registerStatesAndModels() {
 
-//                for (WoodType woodType : WoodTypeRegistry.INSTANCE) {
-//                    String woodTypeId = woodType.getId().toString();
-//                    if (woodTypeId.matches(ArsNouveau.MODID + ":.*")) {
-//                        Block planks = woodType.planks;
-//                        Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
-//                        Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
-//                        Block sapling = woodType.getBlockOfThis(VanillaWoodChildKeys.SAPLING);
-//
-//                        simpleBlock(planks);
-//                    }
-//                }
+                for (WoodType woodType : WoodTypeRegistry.INSTANCE) {
+                    String woodTypeId = woodType.getId().toString();
+                    if (woodTypeId.matches(ArsNouveau.MODID + ":(?!archwood).*")) {
+                        Block planks = woodType.planks;
+                        Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
+                        Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
+                        Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                        Block wallSign = woodType.getBlockOfThis(VanillaWoodChildKeys.WALL_SIGN);
+                        Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
+                        Block wallHangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.WALL_HANGING_SIGN);
 
-                simpleBlock(ContentRegistry.BLUE_ARCHWOOD_PLANK.get());
-                simpleBlock(ContentRegistry.RED_ARCHWOOD_PLANK.get());
-                simpleBlock(ContentRegistry.GREEN_ARCHWOOD_PLANK.get());
-                simpleBlock(ContentRegistry.PURPLE_ARCHWOOD_PLANK.get());
+                        simpleBlock(planks);
 
-                for (String color : colorsFromAN) {
-                    String planksPath = color + "_archwood_planks";
-                    String slabPath = planksPath.replace("planks", "slab");
+                        slabBlock((SlabBlock) slab,
+                                Utils.getID(planks).withPrefix("block/"),
+                                Utils.getID(planks).withPrefix("block/"));
 
-                    slabBlock((SlabBlock) BuiltInRegistries.BLOCK.get(ArsNouveau.prefix(slabPath)),
-                            ArsNouveau.prefix("block/" + planksPath),
-                            ArsNouveau.prefix("block/" + planksPath));
+                        stairsBlock((StairBlock) stairs,
+                                Utils.getID(planks).withPrefix("block/")
+                        );
 
-                    stairsBlock((StairBlock) BuiltInRegistries.BLOCK.get(ArsNouveau.prefix(planksPath.replace("planks", "stairs"))),
-                            ArsNouveau.prefix("block/" + planksPath)
-                    );
+                        signBlock((StandingSignBlock) sign, (WallSignBlock) wallSign,
+                                Utils.getID(planks).withPrefix("block/")
+                        );
+                        hangingSignBlock((CeilingHangingSignBlock) hangingSign, (WallHangingSignBlock) wallHangingSign,
+                                Utils.getID(planks).withPrefix("block/")
+                        );
+                    }
                 }
+
+                logBlock(ContentRegistry.FADING_ARCHWOOD_LOG.get());
+                logBlock(ContentRegistry.STRIPPED_FADING_ARCHWOOD_LOG.get());
+
+                axisBlock(ContentRegistry.FADING_ARCHWOOD_WOOD.get(),
+                        ArsNouveau.prefix("block/archwood_log"),
+                        ArsNouveau.prefix("block/archwood_log_top")
+                );
+                axisBlock(ContentRegistry.STRIPPED_FADING_ARCHWOOD_WOOD.get(),
+                        ArsNouveau.prefix("block/stripped_archwood_log"),
+                        ArsNouveau.prefix("block/stripped_archwood_log_top")
+                );
+
+                Block saplingBlock = ContentRegistry.FADING_ARCHWOOD_SAPLING.get();
+                simpleBlock(saplingBlock, models()
+                        .cross(Utils.getID(saplingBlock).toString(), Utils.getID(saplingBlock).withPrefix("block/"))
+                        .renderType("cutout")
+                );
+
+                simpleBlock(ContentRegistry.FADING_ARCHWOOD_LEAVES.get());
 
             }
         });
@@ -177,23 +219,43 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
         gen.addProvider(event.includeClient(), new ItemModelProvider(output, ArsNouveau.MODID, existingFileHelper) {
             @Override
             protected void registerModels() {
+
+                for (WoodType woodType : WoodTypeRegistry.INSTANCE) {
+                    String woodTypeId = woodType.getId().toString();
+                    if (woodTypeId.matches(ArsNouveau.MODID + ":(?!archwood).*")) {
+                        Block planks = woodType.planks;
+                        Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
+                        Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
+//                        Block sapling = woodType.getBlockOfThis(VanillaWoodChildKeys.SAPLING);
+                        Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                        Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
+
+                        simpleBlockItem(planks);
+
+                        if (Objects.nonNull(slab))
+                            getBuilder(Utils.getID(slab).getPath()).parent(getUncheckedModel(Utils.getID(slab)));
+                        if (Objects.nonNull(stairs))
+                            getBuilder(Utils.getID(stairs).getPath()).parent(getUncheckedModel(Utils.getID(stairs)));
+
+                        if (Objects.nonNull(sign))
+                            getBuilder(Utils.getID(sign).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                                    .texture("layer0", Utils.getID(sign).withPrefix("item/"));
+                        if (Objects.nonNull(hangingSign))
+                            getBuilder(Utils.getID(hangingSign).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                                    .texture("layer0", Utils.getID(hangingSign).withPrefix("item/"));
+
+                    }
+                }
+
                 getBuilder("archwood_log").parent(BlockStatesDatagen.getUncheckedModel("archwood_log"));
                 getBuilder("stripped_archwood_log").parent(BlockStatesDatagen.getUncheckedModel("stripped_archwood_log"));
                 getBuilder("archwood_wood").parent(BlockStatesDatagen.getUncheckedModel("archwood_wood"));
                 getBuilder("stripped_archwood_wood").parent(BlockStatesDatagen.getUncheckedModel("stripped_archwood_wood"));
 
-                simpleBlockItem(ContentRegistry.BLUE_ARCHWOOD_PLANK.get());
-                simpleBlockItem(ContentRegistry.RED_ARCHWOOD_PLANK.get());
-                simpleBlockItem(ContentRegistry.GREEN_ARCHWOOD_PLANK.get());
-                simpleBlockItem(ContentRegistry.PURPLE_ARCHWOOD_PLANK.get());
+                simpleBlockItem(ContentRegistry.FADING_ARCHWOOD_LEAVES.get());
 
-                for (String color : colorsFromAN) {
-                    String slabPath = color + "_archwood_slab";
-                    String stairsPath = slabPath.replace("slab", "stairs");
-
-                    getBuilder(slabPath).parent(BlockStatesDatagen.getUncheckedModel(slabPath));
-                    getBuilder(stairsPath).parent(BlockStatesDatagen.getUncheckedModel(stairsPath));
-                }
+                getBuilder(Utils.getID(ContentRegistry.FADING_ARCHWOOD_SAPLING.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                        .texture("layer0", Utils.getID(ContentRegistry.FADING_ARCHWOOD_SAPLING.get()).withPrefix("block/"));
 
             }
         });
@@ -210,15 +272,32 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
         gen.addProvider(event.includeClient(), new BlockStateProvider(output, ArsElemental.MODID, existingFileHelper) {
             @Override
             protected void registerStatesAndModels() {
-                simpleBlock(ElementalModule.YELLOW_ARCHWOOD_PLANK.get());
+                WoodType woodType = WoodTypeRegistry.INSTANCE.get(ArsElemental.prefix("yellow_archwood"));
+                if (Objects.nonNull(woodType)) {
+                    Block planks = woodType.planks;
+                    Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
+                    Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
+                    Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                    Block wallSign = woodType.getBlockOfThis(VanillaWoodChildKeys.WALL_SIGN);
+                    Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
+                    Block wallHangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.WALL_HANGING_SIGN);
 
-                String blockPath = ElementalModule.YELLOW_ARCHWOOD_PLANK.getId().getPath();
-                slabBlock((SlabBlock) ElementalModule.YELLOW_ARCHWOOD_SLAB.get(),
-                        ArsElemental.prefix("block/" + blockPath),
-                        ArsElemental.prefix("block/" + blockPath));
+                    simpleBlock(planks);
 
-                stairsBlock((StairBlock) ElementalModule.YELLOW_ARCHWOOD_STAIRS.get(),
-                        ArsElemental.prefix("block/" + blockPath));
+                    slabBlock((SlabBlock) slab,
+                            Utils.getID(planks).withPrefix("block/"),
+                            Utils.getID(planks).withPrefix("block/"));
+
+                    stairsBlock((StairBlock) stairs, Utils.getID(planks).withPrefix("block/"));
+
+                    signBlock((StandingSignBlock) sign, (WallSignBlock) wallSign,
+                            Utils.getID(planks).withPrefix("block/")
+                    );
+                    hangingSignBlock((CeilingHangingSignBlock) hangingSign, (WallHangingSignBlock) wallHangingSign,
+                            Utils.getID(planks).withPrefix("block/")
+                    );
+                }
+
             }
         });
 
@@ -226,19 +305,38 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
         gen.addProvider(event.includeClient(), new ItemModelProvider(output, ArsElemental.MODID, existingFileHelper) {
             @Override
             protected void registerModels() {
-                simpleBlockItem(ElementalModule.YELLOW_ARCHWOOD_PLANK.get());
+                WoodType woodType = WoodTypeRegistry.INSTANCE.get(ArsElemental.prefix("yellow_archwood"));
+                if (Objects.nonNull(woodType)) {
+                    Block planks = woodType.planks;
+                    Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
+                    Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
+                    Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                    Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
 
-                getBuilder("yellow_archwood_slab").parent(AWGBlockStatesDatagen.getUncheckedModel(ArsElemental.MODID, "yellow_archwood_slab"));
-                getBuilder("yellow_archwood_stairs").parent(AWGBlockStatesDatagen.getUncheckedModel(ArsElemental.MODID, "yellow_archwood_stairs"));
+                    simpleBlockItem(planks);
+
+                    if (Objects.nonNull(slab))
+                        getBuilder(Utils.getID(slab).getPath()).parent(getUncheckedModel(Utils.getID(slab)));
+                    if (Objects.nonNull(stairs))
+                        getBuilder(Utils.getID(stairs).getPath()).parent(getUncheckedModel(Utils.getID(stairs)));
+
+                    if (Objects.nonNull(sign))
+                        getBuilder(Utils.getID(sign).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                                .texture("layer0", Utils.getID(sign).withPrefix("item/"));
+                    if (Objects.nonNull(hangingSign))
+                        getBuilder(Utils.getID(hangingSign).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                                .texture("layer0", Utils.getID(hangingSign).withPrefix("item/"));
+                }
+
             }
         });
     }
 
-    //      ┌──────────────────────────────────────────────────────────┐
-    //      │                      OTHER METHODS                       │
-    //      └──────────────────────────────────────────────────────────┘
-    public static ModelFile getUncheckedModel(String modId, String registry) {
-        return new ModelFile.UncheckedModelFile(modId + ":block/" + registry);
+//      ┌──────────────────────────────────────────────────────────┐
+//      │                         METHODS                          │
+//      └──────────────────────────────────────────────────────────┘
+    public static ModelFile getUncheckedModel(ResourceLocation registry) {
+        return new ModelFile.UncheckedModelFile(registry.getNamespace() + ":block/" + registry.getPath());
     }
 
     /// Generate models/block & blockstates file for LOG
@@ -273,6 +371,7 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
                         ConfiguredModel.builder().modelFile(models.getExistingFile(logResLoc.withSuffix("_horizontal_3"))).rotationX(90).buildLast()
                 );
     }
+
     /// Generate models/block & blockstates file for WOOD & STRIPPED_WOOD
     public static void generateWoodFiles(Block wood, Block log, BlockModelProvider models, BlockStateProvider blockStateProvider) {
         ResourceLocation logResLoc = Utils.getID(log).withPrefix("block/");

@@ -1,7 +1,6 @@
 package com.alexthw.archwood_good;
 
 import com.alexthw.archwood_good.common.block.StrippablePlanks;
-import com.alexthw.archwood_good.integration.CompatRegistry;
 import com.alexthw.archwood_good.integration.ElementalModule;
 import com.hollingsworth.arsnouveau.common.block.MagicLeaves;
 import com.hollingsworth.arsnouveau.common.block.StrippableLog;
@@ -11,6 +10,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
@@ -21,6 +22,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.function.Supplier;
 
 import static com.hollingsworth.arsnouveau.setup.registry.BlockRegistry.*;
+import static net.minecraft.world.level.block.state.properties.WoodType.register;
 
 public class ContentRegistry {
 
@@ -29,6 +31,22 @@ public class ContentRegistry {
 
     public static final BlockBehaviour.Properties WOOD_PROP = BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.0F, 3.0F).ignitedByLava().sound(SoundType.WOOD);
     public static final BlockBehaviour.Properties SAP_PROP = BlockBehaviour.Properties.of().noCollission().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY);
+
+    /// ─────────────────────────────────── Woodtypes ───────────────────────────────────
+
+    // Archwood Good
+    public static final WoodType ORANGE_ARCHWOOD = register(new WoodType("archwood_good:orange_archwood", BlockSetType.OAK));
+    public static final WoodType WHITE_ARCHWOOD = register(new WoodType("archwood_good:white_archwood", BlockSetType.OAK));
+
+    // Ars Nouveau
+    public static final WoodType BLUE_ARCHWOOD = register(new WoodType("ars_nouveau:blue_archwood", BlockSetType.OAK));
+    public static final WoodType RED_ARCHWOOD = register(new WoodType("ars_nouveau:red_archwood", BlockSetType.OAK));
+    public static final WoodType GREEN_ARCHWOOD = register(new WoodType("ars_nouveau:green_archwood", BlockSetType.OAK));
+    public static final WoodType PURPLE_ARCHWOOD = register(new WoodType("ars_nouveau:purple_archwood", BlockSetType.OAK));
+
+    // Ars Elemental
+    public static final WoodType YELLOW_ARCHWOOD = register(new WoodType("ars_nouveau:yellow_archwood", BlockSetType.OAK));
+
 
     /// ─────────────────────────────────── Archwood ────────────────────────────────────
     public static BlockRegistryWrapper<RotatedPillarBlock> STRIPPED_FADING_ARCHWOOD_LOG = registerBlockAndItem("stripped_archwood_log", () ->
@@ -124,7 +142,7 @@ public class ContentRegistry {
             new StrippableLog(WOOD_PROP, () -> STRIPPED_ORANGE_ARCHWOOD_LOG.get()));
 
     public static DeferredHolder<Block, ? extends Block> WHITE_ARCHWOOD_LOG = addBlockForAWG("white_archwood_log", () ->
-            new StrippableLog(WOOD_PROP, () -> STRIPPED_ORANGE_ARCHWOOD_LOG.get()));
+            new StrippableLog(WOOD_PROP, () -> STRIPPED_WHITE_ARCHWOOD_LOG.get()));
 
     /// ──────────────────────────────── Stripped Woods ─────────────────────────────────
     public static DeferredHolder<Block, ? extends Block> STRIPPED_ORANGE_ARCHWOOD_WOOD = addBlockForAWG("stripped_orange_archwood_wood", () ->
@@ -156,6 +174,65 @@ public class ContentRegistry {
     public static BlockRegistryWrapper<MagicLeaves> WHITE_ARCHWOOD_LEAVES = registerBlockAndItemForAWG("white_archwood_leaves", () ->
             createLeavesBlock(MapColor.SNOW));
 
+    /// ───────────────────────────────────── Sign ──────────────────────────────────────
+
+    // Archwood Good
+    public static final BlockRegistryWrapper<StandingSignBlock> ORANGE_ARCHWOOD_SIGN = registerBlockForAWG("orange_archwood_sign",
+            () -> new StandingSignBlock(ORANGE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)));
+    public static final BlockRegistryWrapper<WallSignBlock> ORANGE_ARCHWOOD_WALL_SIGN = registerBlockForAWG("orange_archwood_wall_sign",
+            () -> new WallSignBlock(ORANGE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
+
+    public static final BlockRegistryWrapper<CeilingHangingSignBlock> ORANGE_ARCHWOOD_HANGING_SIGN = registerBlockForAWG("orange_archwood_hanging_sign",
+            () -> new CeilingHangingSignBlock(ORANGE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
+    public static final BlockRegistryWrapper<WallHangingSignBlock> ORANGE_ARCHWOOD_HANGING_WALL_SIGN = registerBlockForAWG("orange_archwood_wall_hanging_sign",
+            () -> new WallHangingSignBlock(ORANGE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
+
+    public static final BlockRegistryWrapper<StandingSignBlock> WHITE_ARCHWOOD_SIGN = registerBlockForAWG("white_archwood_sign",
+            () -> new StandingSignBlock(WHITE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)));
+    public static final BlockRegistryWrapper<WallSignBlock> WHITE_ARCHWOOD_WALL_SIGN = registerBlockForAWG("white_archwood_wall_sign",
+            () -> new WallSignBlock(WHITE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
+
+    public static final BlockRegistryWrapper<CeilingHangingSignBlock> WHITE_ARCHWOOD_HANGING_SIGN = registerBlockForAWG("white_archwood_hanging_sign",
+            () -> new CeilingHangingSignBlock(WHITE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
+    public static final BlockRegistryWrapper<WallHangingSignBlock> WHITE_ARCHWOOD_HANGING_WALL_SIGN = registerBlockForAWG("white_archwood_wall_hanging_sign",
+            () -> new WallHangingSignBlock(WHITE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
+
+    // Ars Nouveau
+    public static final BlockRegistryWrapper<StandingSignBlock> BLUE_ARCHWOOD_SIGN = registerBlock("blue_archwood_sign",
+            () -> new StandingSignBlock(BLUE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)));
+    public static final BlockRegistryWrapper<WallSignBlock> BLUE_ARCHWOOD_WALL_SIGN = registerBlock("blue_archwood_wall_sign",
+            () -> new WallSignBlock(BLUE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
+    public static final BlockRegistryWrapper<CeilingHangingSignBlock> BLUE_ARCHWOOD_HANGING_SIGN = registerBlock("blue_archwood_hanging_sign",
+            () -> new CeilingHangingSignBlock(BLUE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
+    public static final BlockRegistryWrapper<WallHangingSignBlock> BLUE_ARCHWOOD_HANGING_WALL_SIGN = registerBlock("blue_archwood_wall_hanging_sign",
+            () -> new WallHangingSignBlock(BLUE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
+
+    public static final BlockRegistryWrapper<StandingSignBlock> GREEN_ARCHWOOD_SIGN = registerBlock("green_archwood_sign",
+            () -> new StandingSignBlock(GREEN_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)));
+    public static final BlockRegistryWrapper<WallSignBlock> GREEN_ARCHWOOD_WALL_SIGN = registerBlock("green_archwood_wall_sign",
+            () -> new WallSignBlock(GREEN_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
+    public static final BlockRegistryWrapper<CeilingHangingSignBlock> GREEN_ARCHWOOD_HANGING_SIGN = registerBlock("green_archwood_hanging_sign",
+            () -> new CeilingHangingSignBlock(GREEN_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
+    public static final BlockRegistryWrapper<WallHangingSignBlock> GREEN_ARCHWOOD_HANGING_WALL_SIGN = registerBlock("green_archwood_wall_hanging_sign",
+            () -> new WallHangingSignBlock(GREEN_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
+
+    public static final BlockRegistryWrapper<StandingSignBlock> PURPLE_ARCHWOOD_SIGN = registerBlock("purple_archwood_sign",
+            () -> new StandingSignBlock(PURPLE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)));
+    public static final BlockRegistryWrapper<WallSignBlock> PURPLE_ARCHWOOD_WALL_SIGN = registerBlock("purple_archwood_wall_sign",
+            () -> new WallSignBlock(PURPLE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
+    public static final BlockRegistryWrapper<CeilingHangingSignBlock> PURPLE_ARCHWOOD_HANGING_SIGN = registerBlock("purple_archwood_hanging_sign",
+            () -> new CeilingHangingSignBlock(PURPLE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
+    public static final BlockRegistryWrapper<WallHangingSignBlock> PURPLE_ARCHWOOD_HANGING_WALL_SIGN = registerBlock("purple_archwood_wall_hanging_sign",
+            () -> new WallHangingSignBlock(PURPLE_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
+
+    public static final BlockRegistryWrapper<StandingSignBlock> RED_ARCHWOOD_SIGN = registerBlock("red_archwood_sign",
+            () -> new StandingSignBlock(RED_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SIGN)));
+    public static final BlockRegistryWrapper<WallSignBlock> RED_ARCHWOOD_WALL_SIGN = registerBlock("red_archwood_wall_sign",
+            () -> new WallSignBlock(RED_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_SIGN)));
+    public static final BlockRegistryWrapper<CeilingHangingSignBlock> RED_ARCHWOOD_HANGING_SIGN = registerBlock("red_archwood_hanging_sign",
+            () -> new CeilingHangingSignBlock(RED_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_HANGING_SIGN)));
+    public static final BlockRegistryWrapper<WallHangingSignBlock> RED_ARCHWOOD_HANGING_WALL_SIGN = registerBlock("red_archwood_wall_hanging_sign",
+            () -> new WallHangingSignBlock(RED_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
 
     //      ┌──────────────────────────────────────────────────────────┐
     //      │                           Init                           │
@@ -166,9 +243,9 @@ public class ContentRegistry {
             ElementalModule.init();
         }
         // if Every Compat is loaded, register the module
-        if (ModList.get().isLoaded("everycomp")) {
-            CompatRegistry.init();
-        }
+//        if (ModList.get().isLoaded("everycomp")) {
+//            CompatRegistry.init();
+//        }
     }
 
     private static DeferredHolder<Block, ? extends Block> addBlockForAWG(String name, Supplier<Block> blockSupp) {
@@ -181,5 +258,9 @@ public class ContentRegistry {
         BlockRegistryWrapper<T> blockReg = new BlockRegistryWrapper<>(BLOCKS.register(name, blockSupp));
         ITEMS.register(name, () -> getDefaultBlockItem(blockReg.get()));
         return blockReg;
+    }
+
+    public static <T extends Block> BlockRegistryWrapper<T> registerBlockForAWG(String name, Supplier<T> blockSupp) {
+        return new BlockRegistryWrapper<>(BLOCKS.register(name, blockSupp));
     }
 }

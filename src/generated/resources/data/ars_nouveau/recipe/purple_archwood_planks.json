@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "ars_nouveau:purple_archwood_log"
+      "tag": "ars_nouveau:purple_archwood_logs"
     }
   ],
   "result": {
