@@ -9,10 +9,13 @@ import com.hollingsworth.arsnouveau.setup.registry.ItemsRegistry;
 import net.mehvahdjukaar.moonlight.api.set.wood.VanillaWoodChildKeys;
 import net.mehvahdjukaar.moonlight.api.set.wood.WoodType;
 import net.mehvahdjukaar.moonlight.api.set.wood.WoodTypeRegistry;
+import net.mehvahdjukaar.moonlight.api.util.Utils;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +26,8 @@ import java.util.concurrent.CompletableFuture;
 import static com.hollingsworth.arsnouveau.common.datagen.RecipeDatagen.shapedWoodenStairs;
 
 public class RecipeDataGen extends RecipeProvider {
+
+    public static Ingredient ARCHWOOD_LOGS = Ingredient.of(AWGItemTagsProvider.FADING_ARCHWOOD_LOG_TAG);
 
     public RecipeDataGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
@@ -43,9 +48,12 @@ public class RecipeDataGen extends RecipeProvider {
                 Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
                 Block sapling = woodType.getBlockOfThis(VanillaWoodChildKeys.SAPLING);
 
-                shapelessBuilder(planks, 4).requires(log).save(recipeOutput);
+                Ingredient logTag = Ingredient.of(ItemTags.create(Utils.getID(log).withSuffix("s")));
+                shapelessBuilder(planks, 4).requires(logTag).save(recipeOutput);
 
-                if (Objects.nonNull(wood)) makeWood(log, wood, 3).save(recipeOutput);
+                if (Objects.nonNull(wood)) {
+                    makeWood(log, wood, 3).save(recipeOutput);
+                }
                 if (Objects.nonNull(stripped_wood)) strippedLogToWood(recipeOutput, stripped_log, stripped_wood);
 
                 if (Objects.nonNull(stairs)) shapedWoodenStairs(recipeOutput, stairs, planks);
@@ -56,27 +64,10 @@ public class RecipeDataGen extends RecipeProvider {
 
 
 //                shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get()).requires(Ingredient.of(archwoodPlanks)).save(recipeOutput); //TODO: need an item to bleach colored planks into plain planks
-        shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get(), 4).requires(ContentRegistry.FADING_ARCHWOOD_LOG.get()).save(recipeOutput);
+        shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get(), 4).requires(ARCHWOOD_LOGS).save(recipeOutput);
+
         makeWood(ContentRegistry.FADING_ARCHWOOD_LOG, ContentRegistry.FADING_ARCHWOOD_WOOD.get(), 3).save(recipeOutput);
         strippedLogToWood(recipeOutput, ContentRegistry.STRIPPED_FADING_ARCHWOOD_LOG, ContentRegistry.STRIPPED_FADING_ARCHWOOD_WOOD.get());
-
-//        shapelessBuilder(ContentRegistry.BLUE_ARCHWOOD_PLANK, 4).requires(BlockRegistry.CASCADING_LOG.get()).save(recipeOutput);
-//        shapelessBuilder(ContentRegistry.RED_ARCHWOOD_PLANK, 4).requires(BlockRegistry.BLAZING_LOG.get()).save(recipeOutput);
-//        shapelessBuilder(ContentRegistry.GREEN_ARCHWOOD_PLANK, 4).requires(BlockRegistry.FLOURISHING_LOG.get()).save(recipeOutput);
-//        shapelessBuilder(ContentRegistry.PURPLE_ARCHWOOD_PLANK, 4).requires(BlockRegistry.VEXING_LOG.get()).save(recipeOutput);
-//        shapelessBuilder(ElementalModule.YELLOW_ARCHWOOD_PLANK.get(), 4).requires(ModItems.FLASHING_ARCHWOOD_LOG.get()).save(recipeOutput);
-//
-//        shapedWoodenStairs(recipeOutput, ContentRegistry.BLUE_ARCHWOOD_STAIRS, ContentRegistry.BLUE_ARCHWOOD_PLANK);
-//        shapedWoodenStairs(recipeOutput, ContentRegistry.RED_ARCHWOOD_STAIRS, ContentRegistry.RED_ARCHWOOD_PLANK);
-//        shapedWoodenStairs(recipeOutput, ContentRegistry.GREEN_ARCHWOOD_STAIRS, ContentRegistry.GREEN_ARCHWOOD_PLANK);
-//        shapedWoodenStairs(recipeOutput, ContentRegistry.PURPLE_ARCHWOOD_STAIRS, ContentRegistry.PURPLE_ARCHWOOD_PLANK);
-//        shapedWoodenStairs(recipeOutput, ElementalModule.YELLOW_ARCHWOOD_STAIRS.get(), ElementalModule.YELLOW_ARCHWOOD_PLANK.get());
-//
-//        shapedWoodenSlab(recipeOutput, ContentRegistry.BLUE_ARCHWOOD_SLAB, ContentRegistry.BLUE_ARCHWOOD_PLANK);
-//        shapedWoodenSlab(recipeOutput, ContentRegistry.RED_ARCHWOOD_SLAB, ContentRegistry.RED_ARCHWOOD_PLANK);
-//        shapedWoodenSlab(recipeOutput, ContentRegistry.GREEN_ARCHWOOD_SLAB, ContentRegistry.GREEN_ARCHWOOD_PLANK);
-//        shapedWoodenSlab(recipeOutput, ContentRegistry.PURPLE_ARCHWOOD_SLAB, ContentRegistry.PURPLE_ARCHWOOD_PLANK);
-//        shapedWoodenSlab(recipeOutput, ElementalModule.YELLOW_ARCHWOOD_SLAB.get(), ElementalModule.YELLOW_ARCHWOOD_PLANK.get());
 
     }
 
