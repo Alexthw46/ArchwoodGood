@@ -23,6 +23,8 @@ public class ArchwoodGood {
         ItemRegistry.init();
 
         ContentSetup.registers(eventBus);
+
+        AWGCreativeTabRegistry.TABS.register(eventBus);
     }
 
     public static ResourceLocation res(String path) {
