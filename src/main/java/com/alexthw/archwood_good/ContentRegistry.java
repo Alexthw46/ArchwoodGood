@@ -1,6 +1,7 @@
 package com.alexthw.archwood_good;
 
 import com.alexthw.archwood_good.common.block.StrippablePlanks;
+import com.alexthw.archwood_good.integration.CompatRegistry;
 import com.alexthw.archwood_good.integration.ElementalModule;
 import com.hollingsworth.arsnouveau.common.block.MagicLeaves;
 import com.hollingsworth.arsnouveau.common.block.StrippableLog;
@@ -242,10 +243,10 @@ public class ContentRegistry {
         if (ModList.get().isLoaded("ars_elemental")) {
             ElementalModule.init();
         }
-        // if Every Compat is loaded, register the module
-//        if (ModList.get().isLoaded("everycomp")) {
-//            CompatRegistry.init();
-//        }
+        // if Moonlight-lib is loaded, Init the module
+        if (ModList.get().isLoaded("moonlight")) {
+            CompatRegistry.init();
+        }
     }
 
     private static DeferredHolder<Block, ? extends Block> addBlockForAWG(String name, Supplier<Block> blockSupp) {
