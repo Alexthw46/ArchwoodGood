@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "archwood_good:stripped_orange_archwood_log"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "archwood_good:blocks/stripped_orange_archwood_log"
+}

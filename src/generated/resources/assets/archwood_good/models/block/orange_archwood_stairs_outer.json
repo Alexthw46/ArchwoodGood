@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "archwood_good:block/orange_archwood_planks",
+    "side": "archwood_good:block/orange_archwood_planks",
+    "top": "archwood_good:block/orange_archwood_planks"
+  }
+}

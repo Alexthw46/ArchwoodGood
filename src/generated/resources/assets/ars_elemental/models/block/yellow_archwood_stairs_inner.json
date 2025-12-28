@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "ars_elemental:block/yellow_archwood_planks",
+    "side": "ars_elemental:block/yellow_archwood_planks",
+    "top": "ars_elemental:block/yellow_archwood_planks"
+  }
+}

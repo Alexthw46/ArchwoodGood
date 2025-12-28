@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "archwood_good:block/stripped_white_archwood_log_3",
+    "side": "archwood_good:block/stripped_white_archwood_log_3"
+  }
+}

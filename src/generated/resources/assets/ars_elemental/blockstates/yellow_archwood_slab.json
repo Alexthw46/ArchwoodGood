@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ars_elemental:block/yellow_archwood_slab"
+    },
+    "type=double": {
+      "model": "ars_elemental:block/yellow_archwood_planks"
+    },
+    "type=top": {
+      "model": "ars_elemental:block/yellow_archwood_slab_top"
+    }
+  }
+}

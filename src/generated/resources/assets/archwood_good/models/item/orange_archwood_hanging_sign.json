@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "archwood_good:item/orange_archwood_hanging_sign"
+  }
+}

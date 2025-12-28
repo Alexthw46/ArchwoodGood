@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "x": {
+      "item": "archwood_good:white_archwood_log"
+    }
+  },
+  "pattern": [
+    "xx ",
+    "xx "
+  ],
+  "result": {
+    "count": 3,
+    "id": "archwood_good:white_archwood_wood"
+  }
+}

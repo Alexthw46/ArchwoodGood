@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "archwood_good:block/white_archwood_planks"
+  }
+}

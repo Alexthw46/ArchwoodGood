@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "archwood_good:block/orange_archwood_log_3",
+    "side": "archwood_good:block/orange_archwood_log_3"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "archwood_good:block/orange_archwood_leaves"
+  }
+}

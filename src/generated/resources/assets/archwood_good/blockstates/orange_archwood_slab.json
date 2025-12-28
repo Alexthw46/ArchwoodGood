@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "archwood_good:block/orange_archwood_slab"
+    },
+    "type=double": {
+      "model": "archwood_good:block/orange_archwood_planks"
+    },
+    "type=top": {
+      "model": "archwood_good:block/orange_archwood_slab_top"
+    }
+  }
+}
