@@ -115,6 +115,10 @@ repositories {
 
     maven { url = "https://registry.somethingcatchy.net/repository/maven-releases/" } // Moonlight & EveryComp
 
+    maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
+
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
+
     maven { url = "https://maven.terraformersmc.com/" } // EMI
 
     maven {
@@ -157,39 +161,49 @@ repositories {
 dependencies {
 
     //+ REQUIRED MODS
-    implementation("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${nouveau_version}")
-    implementation ("com.alexthw.ars_elemental:ars_elemental-${minecraft_version}:${elemental_version}")
+    implementation("com.hollingsworth.ars_nouveau:ars_nouveau-$minecraft_version:$nouveau_version")
+    implementation ("com.alexthw.ars_elemental:ars_elemental-$minecraft_version:$elemental_version")
 //    implementation "curse.maven:every-integration-628539:7245196"
 //    implementation "curse.maven:selene-499980:7238829"
 
-    implementation("net.mehvahdjukaar:everycomp-neoforge:${everycomp_version}:neoforge") {
+    implementation("net.mehvahdjukaar:everycomp-neoforge:$everycomp_version:neoforge") {
         transitive = false
     }
-    implementation("net.mehvahdjukaar:moonlight-neoforge:${moonlight_version}:neoforge") {
+    implementation("net.mehvahdjukaar:moonlight-neoforge:$moonlight_version:neoforge") {
+        transitive = false
+    }
+    implementation("net.mehvahdjukaar:supplementaries-neoforge:$supplementaries_version:neoforge") {
         transitive = false
     }
 
     // only need the compileOnly, the runtime dependency is handled by Ars Nouveau
         // TOOLS
-    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
+    compileOnly "mezz.jei:jei-$minecraft_version-neoforge-api:$jei_version"
+    runtimeOnly "dev.emi:emi-neoforge:$emi_version+$minecraft_version"
+
         // MAVENS
-    compileOnly "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
-    compileOnly "vazkii.patchouli:Patchouli:1.21-${patchouli_version}"
+    compileOnly "software.bernie.geckolib:geckolib-neoforge-$minecraft_version:$geckolib_version"
+    compileOnly "vazkii.patchouli:Patchouli:1.21-$patchouli_version"
     compileOnly 'com.github.glitchfiend:TerraBlender-neoforge:1.21-4.0.0.0'
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:$curios_version"
+            // Dependencies
+    implementation("dev.engine-room.flywheel:flywheel-neoforge-$minecraft_version:$flywheel_version") // Create
+    implementation("net.createmod.ponder:Ponder-NeoForge-$minecraft_version:$ponder_version") // Create
+    implementation("com.tterrag.registrate:Registrate:$registrate_version") // Create
 
         // Curseforge - SUPPORTED MODS
-    implementation "curse.maven:macaws-furniture-359540:7255584"
-    implementation "curse.maven:bibliocraft-legacy-1122260:7055118"
-    implementation "curse.maven:another-furniture-610492:7144788"
-    implementation "curse.maven:farmers-delight-398521:6917256"
-    implementation "curse.maven:macaws-bridges-351725:6543002"
-    implementation "curse.maven:macaws-doors-378646:6146345"
-    implementation "curse.maven:macaws-trapdoors-400933:7256148"
-    implementation "curse.maven:quad-932715:5900860"
-    implementation "curse.maven:more-chest-variants-lieonlion-858032:6833233"
+    runtimeOnly "curse.maven:macaws-furniture-359540:7255584"
+    runtimeOnly "curse.maven:bibliocraft-legacy-1122260:7055118"
+    runtimeOnly "curse.maven:another-furniture-610492:7144788"
+    runtimeOnly "curse.maven:farmers-delight-398521:6917256"
+    runtimeOnly "curse.maven:macaws-bridges-351725:6543002"
+    runtimeOnly "curse.maven:macaws-doors-378646:6146345"
+    runtimeOnly "curse.maven:macaws-trapdoors-400933:7256148"
+    runtimeOnly "curse.maven:quad-932715:5900860"
+    runtimeOnly "curse.maven:more-chest-variants-lieonlion-858032:6833233"
 
+            // MAVENS
+    implementation("com.simibubi.create:create-$minecraft_version:$create_version:slim") { transitive = false } // Registrate, Flywheel, Ponder
 
     //implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
