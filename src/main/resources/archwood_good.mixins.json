@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.alexthw.archwood_good.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "com.alexthw.archwood_good.mixins.ShouldApplyMixin",
+  "mixins": [
+    "RuntimeDataGeneratorMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}
