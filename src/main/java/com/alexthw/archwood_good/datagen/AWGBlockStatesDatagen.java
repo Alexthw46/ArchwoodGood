@@ -3,6 +3,7 @@ package com.alexthw.archwood_good.datagen;
 import alexthw.ars_elemental.ArsElemental;
 import com.alexthw.archwood_good.ArchwoodGood;
 import com.alexthw.archwood_good.ContentRegistry;
+import com.alexthw.archwood_good.ItemRegistry;
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.common.datagen.BlockStatesDatagen;
 import net.mehvahdjukaar.moonlight.api.set.wood.VanillaWoodChildKeys;
@@ -21,7 +22,9 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.Objects;
 
-public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
+public class AWGBlockStatesDatagen {
+
+    private static final ResourceLocation GENERATED = ResourceLocation.withDefaultNamespace("item/generated");
 
     //      ┌──────────────────────────────────────────────────────────┐
     //      │                      Archwood Good                       │
@@ -142,6 +145,10 @@ public class AWGBlockStatesDatagen<T extends ModelBuilder<T>> {
                     }
 
                 }
+
+                // ARCHFRUITS
+                withExistingParent(Utils.getID(ItemRegistry.DAWNBERRY_POD).getPath(), GENERATED).texture("layer0", Utils.getID(ItemRegistry.DAWNBERRY_POD).withPrefix("item/archfruit/"));
+                withExistingParent(Utils.getID(ItemRegistry.LIGHTCHEE_POD).getPath(), GENERATED).texture("layer0", Utils.getID(ItemRegistry.LIGHTCHEE_POD).withPrefix("item/archfruit/"));
 
             }
         });
