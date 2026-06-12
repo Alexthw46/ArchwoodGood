@@ -114,11 +114,8 @@ repositories {
     mavenLocal()
 
     maven { url = "https://registry.somethingcatchy.net/repository/maven-releases/" } // Moonlight & EveryComp
-
     maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
-
     maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
-
     maven { url = "https://maven.terraformersmc.com/" } // EMI
 
     maven {
@@ -153,6 +150,10 @@ repositories {
     maven {
         name = "OctoStudios"
         url = uri("https://maven.octo-studios.com/releases")
+    }
+    maven {
+        name = "Curios"
+        url = uri("https://maven.theillusivec4.top/")
     }
     maven { url 'https://jitpack.io' }
 
