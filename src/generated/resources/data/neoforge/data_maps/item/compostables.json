@@ -1,0 +1,22 @@
+{
+  "values": {
+    "archwood_good:dawnberry_pod": {
+      "chance": 0.65
+    },
+    "archwood_good:lightchee_pod": {
+      "chance": 0.65
+    },
+    "archwood_good:orange_archwood_leaves": {
+      "chance": 0.3
+    },
+    "archwood_good:orange_archwood_sapling": {
+      "chance": 0.3
+    },
+    "archwood_good:white_archwood_leaves": {
+      "chance": 0.3
+    },
+    "archwood_good:white_archwood_sapling": {
+      "chance": 0.3
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "archwood_good:block/white_archwood_leaves"
+      },
+      {
+        "model": "archwood_good:block/white_archwood_leaves_1"
+      },
+      {
+        "model": "archwood_good:block/white_archwood_leaves_2"
+      }
+    ]
+  }
+}
