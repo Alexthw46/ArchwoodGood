@@ -3,6 +3,7 @@ package com.alexthw.archwood_good.datagen;
 import alexthw.ars_elemental.ArsElemental;
 import com.alexthw.archwood_good.ArchwoodGood;
 import com.hollingsworth.arsnouveau.ArsNouveau;
+import com.hollingsworth.arsnouveau.common.block.ArchfruitPod;
 import net.mehvahdjukaar.moonlight.api.set.wood.VanillaWoodChildKeys;
 import net.mehvahdjukaar.moonlight.api.set.wood.WoodType;
 import net.mehvahdjukaar.moonlight.api.set.wood.WoodTypeRegistry;
@@ -12,6 +13,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -24,7 +26,10 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class AWGLootTables extends LootTableProvider {
@@ -46,7 +51,10 @@ public class AWGLootTables extends LootTableProvider {
         protected void generate() {
             for (WoodType woodType : WoodTypeRegistry.INSTANCE) {
                 String woodTypeId = woodType.getId().toString();
-                // Archwood Good
+
+                //      ┌──────────────────────────────────────────────────────────┐
+                //      │                      Archwood Good                       │
+                //      └──────────────────────────────────────────────────────────┘
                 if (woodTypeId.matches(ArchwoodGood.MODID + ":.*")) {
                     Block planks = woodType.planks;
                     Block log = woodType.log;
@@ -57,22 +65,32 @@ public class AWGLootTables extends LootTableProvider {
                     Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
                     Block leaves = woodType.getBlockOfThis(VanillaWoodChildKeys.LEAVES);
                     Block sapling = woodType.getBlockOfThis(VanillaWoodChildKeys.SAPLING);
+                    Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                    Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
+                    Block archfruit = woodType.getBlockOfThis("archfruit");
 
-                    if (Objects.nonNull(leaves) && Objects.nonNull(sapling))
+                    if (leaves != null && sapling != null)
                         registerLeavesAndSticks(leaves, sapling);
 
-                    if (Objects.nonNull(planks)) registerDropSelf(planks);
-                    if (Objects.nonNull(log)) registerDropSelf(log);
-                    if (Objects.nonNull(stripped_log)) registerDropSelf(stripped_log);
-                    if (Objects.nonNull(wood)) registerDropSelf(wood);
-                    if (Objects.nonNull(stripped_wood)) registerDropSelf(stripped_wood);
-                    if (Objects.nonNull(slab)) registerSlabItemTable(slab);
-                    if (Objects.nonNull(stairs)) registerDropSelf(stairs);
+                    if (planks != null) registerDropSelf(planks);
+                    if (log != null) registerDropSelf(log);
+                    if (stripped_log != null) registerDropSelf(stripped_log);
+                    if (wood != null) registerDropSelf(wood);
+                    if (stripped_wood != null) registerDropSelf(stripped_wood);
+                    if (slab != null) registerSlabItemTable(slab);
+                    if (stairs != null) registerDropSelf(stairs);
+                    if (sign != null) registerDropSelf(sign);
+                    if (hangingSign != null) registerDropSelf(hangingSign);
+                    if (sapling != null) registerDropSelf(sapling);
 
+                    if (archfruit != null)
+                        add(archfruit, LootTable.lootTable().withPool(POD_BUILDER(archfruit.asItem(), archfruit)));
                 }
 
-                // Ars Nouevau & Ars Elemental
-                if (woodTypeId.matches("\\("+ ArsNouveau.MODID +"|"+ ArsElemental.MODID + "\\):.*")) {
+                //      ┌──────────────────────────────────────────────────────────┐
+                //      │               Ars Nouevau & Ars Elemental                │
+                //      └──────────────────────────────────────────────────────────┘
+                if (woodTypeId.matches("("+ ArsNouveau.MODID +"|"+ ArsElemental.MODID + "):.*")) {
                     Block planks = woodType.planks;
                     Block log = woodType.log;
                     Block stripped_log = woodType.getBlockOfThis(VanillaWoodChildKeys.STRIPPED_LOG);
@@ -80,17 +98,21 @@ public class AWGLootTables extends LootTableProvider {
                     Block stripped_wood = woodType.getBlockOfThis(VanillaWoodChildKeys.STRIPPED_WOOD);
                     Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
                     Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
+                    Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                    Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
 
-                    if (Objects.nonNull(planks)) registerDropSelf(planks);
-                    if (Objects.nonNull(slab)) registerSlabItemTable(slab);
-                    if (Objects.nonNull(stairs)) registerDropSelf(stairs);
+                    if (planks != null) registerDropSelf(planks);
+                    if (slab != null) registerSlabItemTable(slab);
+                    if (stairs != null) registerDropSelf(stairs);
+                    if (sign != null) registerDropSelf(sign);
+                    if (hangingSign != null) registerDropSelf(hangingSign);
 
                     // Only fading_archwood need the loot_tables
                     if (woodTypeId.matches(ArsNouveau.MODID + ":archwood")) {
-                        if (Objects.nonNull(log)) registerDropSelf(log);
-                        if (Objects.nonNull(stripped_log)) registerDropSelf(stripped_log);
-                        if (Objects.nonNull(wood)) registerDropSelf(wood);
-                        if (Objects.nonNull(stripped_wood)) registerDropSelf(stripped_wood);
+                        if (log != null) registerDropSelf(log);
+                        if (stripped_log != null) registerDropSelf(stripped_log);
+                        if (wood != null) registerDropSelf(wood);
+                        if (stripped_wood != null) registerDropSelf(stripped_wood);
                     }
 
                 }
@@ -123,5 +145,21 @@ public class AWGLootTables extends LootTableProvider {
             return list;
         }
 
+        @Override
+        protected void add(@NotNull Block pBlock, LootTable.@NotNull Builder pBuilder) {
+            list.add(pBlock);
+            super.add(pBlock, pBuilder);
+        }
+
+        public LootPool.Builder POD_BUILDER(Item item, Block block) {
+            return LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(item)
+                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(3.0F))
+                                    .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ArchfruitPod.AGE, 2)))));
+        }
+
     }
+
+
 }

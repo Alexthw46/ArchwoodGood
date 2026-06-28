@@ -1,18 +1,24 @@
-package com.alexthw.archwood_good;
+package com.alexthw.archwood_good.registry;
 
-import com.alexthw.archwood_good.common.block.StrippablePlanks;
+import com.alexthw.archwood_good.ArchwoodGood;
+import com.alexthw.archwood_good.block.StrippablePlanks;
 import com.alexthw.archwood_good.integration.CompatRegistry;
-import com.alexthw.archwood_good.integration.ElementalModule;
+import com.alexthw.archwood_good.lib.ContentName;
+import com.alexthw.archwood_good.worldgen.provider.AWGSupplierBlockStateProvider;
+import com.hollingsworth.arsnouveau.common.block.ArchfruitPod;
 import com.hollingsworth.arsnouveau.common.block.MagicLeaves;
 import com.hollingsworth.arsnouveau.common.block.StrippableLog;
-import com.hollingsworth.arsnouveau.common.world.tree.MagicTree;
 import com.hollingsworth.arsnouveau.setup.registry.BlockRegistryWrapper;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.bus.api.IEventBus;
@@ -22,10 +28,16 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
+import static com.alexthw.archwood_good.registry.RegistryHelper.addBlockForAWG;
+import static com.alexthw.archwood_good.registry.RegistryHelper.registerBlockAndItemForAWG;
+import static com.alexthw.archwood_good.worldgen.trees.AWGTreeGrowers.*;
 import static com.hollingsworth.arsnouveau.setup.registry.BlockRegistry.*;
 import static net.minecraft.world.level.block.state.properties.WoodType.register;
 
-public class ContentRegistry {
+public class AWGBlockRegistry {
+
+    public static final DeferredRegister<BlockStateProviderType<?>> BS_PROVIDERS = DeferredRegister.create(BuiltInRegistries.BLOCKSTATE_PROVIDER_TYPE, ArchwoodGood.MODID);
+    public static final Holder<BlockStateProviderType<?>> stateProviderType = BS_PROVIDERS.register(ContentName.STATE_PROVIDER, () -> new BlockStateProviderType<>(AWGSupplierBlockStateProvider.CODEC));
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.createItems(ArchwoodGood.MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(ArchwoodGood.MODID);
@@ -49,7 +61,7 @@ public class ContentRegistry {
     public static final WoodType YELLOW_ARCHWOOD = register(new WoodType("ars_nouveau:yellow_archwood", BlockSetType.OAK));
 
 
-    /// ─────────────────────────────────── Archwood ────────────────────────────────────
+    /// ─────────────────────────────────── Fading Archwood ────────────────────────────────────
     public static BlockRegistryWrapper<RotatedPillarBlock> STRIPPED_FADING_ARCHWOOD_LOG = registerBlockAndItem("stripped_archwood_log", () ->
             new RotatedPillarBlock(WOOD_PROP));
 
@@ -63,7 +75,7 @@ public class ContentRegistry {
             new StrippableLog(WOOD_PROP, () -> STRIPPED_FADING_ARCHWOOD_WOOD.get()));
 
     public static BlockRegistryWrapper<SaplingBlock> FADING_ARCHWOOD_SAPLING = registerBlockAndItem("archwood_sapling", () ->
-            new SaplingBlock(MagicTree.getGrower("archwood_tree", AWGWorldgenRegistry.CONFIGURED_FADING_TREE), SAP_PROP));
+            new SaplingBlock(FADING_ARCHWOOD_TREE, SAP_PROP));
 
     public static BlockRegistryWrapper<MagicLeaves> FADING_ARCHWOOD_LEAVES = registerBlockAndItem("archwood_leaves", () ->
             createLeavesBlock(MapColor.COLOR_GRAY));
@@ -103,10 +115,11 @@ public class ContentRegistry {
     public static BlockRegistryWrapper<Block> PURPLE_ARCHWOOD_SLAB = registerBlockAndItem("purple_archwood_slab", () ->
             new SlabBlock(BlockBehaviour.Properties.ofFullCopy(PURPLE_ARCHWOOD_PLANK.get())));
 
-    public static DeferredHolder<Block, ? extends Block> ORANGE_ARCHWOOD_SLAB = addBlockForAWG("orange_archwood_slab", () ->
+    // Archwood Good
+    public static BlockRegistryWrapper<Block> ORANGE_ARCHWOOD_SLAB = registerBlockAndItemForAWG("orange_archwood_slab", () ->
             new SlabBlock(BlockBehaviour.Properties.ofFullCopy(ORANGE_ARCHWOOD_PLANK.get())));
 
-    public static DeferredHolder<Block, ? extends Block> WHITE_ARCHWOOD_SLAB = addBlockForAWG("white_archwood_slab", () ->
+    public static BlockRegistryWrapper<Block> WHITE_ARCHWOOD_SLAB = registerBlockAndItemForAWG("white_archwood_slab", () ->
             new SlabBlock(BlockBehaviour.Properties.ofFullCopy(WHITE_ARCHWOOD_PLANK.get())));
 
     /// ──────────────────────────────────── Stairs ─────────────────────────────────────
@@ -124,10 +137,10 @@ public class ContentRegistry {
             new StairBlock(PURPLE_ARCHWOOD_PLANK.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BLUE_ARCHWOOD_PLANK.get())));
 
     // Archwood Good
-    public static DeferredHolder<Block, ? extends Block> ORANGE_ARCHWOOD_STAIRS = addBlockForAWG("orange_archwood_stairs", () ->
+    public static BlockRegistryWrapper<Block> ORANGE_ARCHWOOD_STAIRS = registerBlockAndItemForAWG("orange_archwood_stairs", () ->
             new StairBlock(ORANGE_ARCHWOOD_PLANK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BLUE_ARCHWOOD_PLANK.get())));
 
-    public static DeferredHolder<Block, ? extends Block> WHITE_ARCHWOOD_STAIRS = addBlockForAWG("white_archwood_stairs", () ->
+    public static BlockRegistryWrapper<Block> WHITE_ARCHWOOD_STAIRS = registerBlockAndItemForAWG("white_archwood_stairs", () ->
             new StairBlock(WHITE_ARCHWOOD_PLANK.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(BLUE_ARCHWOOD_PLANK.get())));
 
     /// ───────────────────────────────── Stripped Logs ─────────────────────────────────
@@ -162,10 +175,10 @@ public class ContentRegistry {
     /// ─────────────────────────────────── Saplings ────────────────────────────────────
     // Archwood Good
     public static BlockRegistryWrapper<SaplingBlock> ORANGE_ARCHWOOD_SAPLING = registerBlockAndItemForAWG("orange_archwood_sapling", () ->
-            new SaplingBlock(MagicTree.getGrower("orange_archwood_tree", AWGWorldgenRegistry.CONFIGURED_FADING_TREE), SAP_PROP));
+            new SaplingBlock(ORANGE_ARCHWOOD_TREE, SAP_PROP));
 
-//    public static BlockRegistryWrapper<SaplingBlock> WHITE_ARCHWOOD_SAPLING = registerBlockAndItem("orange_archwood_sapling", () ->
-//            new SaplingBlock(MagicTree.getGrower("orange_archwood_tree", AWGWorldgenRegistry.CONFIGURED_FADING_TREE), SAP_PROP));
+    public static BlockRegistryWrapper<SaplingBlock> WHITE_ARCHWOOD_SAPLING = registerBlockAndItemForAWG("white_archwood_sapling", () ->
+            new SaplingBlock(WHITE_ARCHWOOD_TREE, SAP_PROP));
 
     /// ──────────────────────────────────── Leaves ─────────────────────────────────────
     // Archwood Good
@@ -235,31 +248,36 @@ public class ContentRegistry {
     public static final BlockRegistryWrapper<WallHangingSignBlock> RED_ARCHWOOD_HANGING_WALL_SIGN = registerBlock("red_archwood_wall_hanging_sign",
             () -> new WallHangingSignBlock(RED_ARCHWOOD, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WALL_HANGING_SIGN)));
 
+    /// ───────────────────────────────── Fruits / Pods ─────────────────────────────────
+    // Archwood Good
+    public static BlockRegistryWrapper<ArchfruitPod> DAWNBERRY_POD = registerBlockForAWG("dawnberry_pod",
+            () -> new ArchfruitPod(TagKey.create(Registries.BLOCK, ArchwoodGood.res("orange_archwood_logs"))));
+
+    public static BlockRegistryWrapper<ArchfruitPod> LIGHTCHEE_POD = registerBlockForAWG("lightchee_pod",
+            () -> new ArchfruitPod(TagKey.create(Registries.BLOCK, ArchwoodGood.res("white_archwood_logs"))));
+
     //      ┌──────────────────────────────────────────────────────────┐
     //      │                           Init                           │
     //      └──────────────────────────────────────────────────────────┘
     public static void init(IEventBus bus) {
-        // if Ars Elemental is loaded, register the blocks
-        if (ModList.get().isLoaded("ars_elemental")) {
-            ElementalModule.init();
-        }
-        // if Moonlight-lib is loaded, Init the module
-        if (ModList.get().isLoaded("moonlight")) {
+        if (ModList.get().isLoaded("ars_elemental") || ModList.get().isLoaded("moonlight")) {
             CompatRegistry.init();
         }
     }
 
-    private static DeferredHolder<Block, ? extends Block> addBlockForAWG(String name, Supplier<Block> blockSupp) {
-        DeferredHolder<Block, ? extends Block> block = BLOCKS.register(name, blockSupp);
-        ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-        return block;
-    }
 
-    public static <T extends Block> BlockRegistryWrapper<T> registerBlockAndItemForAWG(String name, Supplier<T> blockSupp) {
-        BlockRegistryWrapper<T> blockReg = new BlockRegistryWrapper<>(BLOCKS.register(name, blockSupp));
-        ITEMS.register(name, () -> getDefaultBlockItem(blockReg.get()));
-        return blockReg;
-    }
+//    public static MagicLeaves createLeavesBlockForAWG(MapColor color) {
+//        return new MagicLeaves(BlockBehaviour.Properties.of().mapColor(color).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(
+//                ContentRegistry::allowsSpawnOnLeaves).isSuffocating(ContentRegistry::isntSolid).isViewBlocking(ContentRegistry::isntSolid).pushReaction(PushReaction.DESTROY).isRedstoneConductor(ContentRegistry::isntSolid).ignitedByLava());
+//    }
+//
+//    private static Boolean allowsSpawnOnLeaves(BlockState state, BlockGetter reader, BlockPos pos, EntityType<?> entity) {
+//        return entity == EntityType.OCELOT || entity == EntityType.PARROT;
+//    }
+//
+//    private static boolean isntSolid(BlockState state, BlockGetter reader, BlockPos pos) {
+//        return false;
+//    }
 
     public static <T extends Block> BlockRegistryWrapper<T> registerBlockForAWG(String name, Supplier<T> blockSupp) {
         return new BlockRegistryWrapper<>(BLOCKS.register(name, blockSupp));

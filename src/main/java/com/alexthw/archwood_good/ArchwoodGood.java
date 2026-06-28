@@ -1,13 +1,15 @@
 package com.alexthw.archwood_good;
 
+import com.alexthw.archwood_good.registry.AWGBlockRegistry;
+import com.alexthw.archwood_good.registry.AWGItemRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.alexthw.archwood_good.ContentRegistry.BLOCKS;
-import static com.alexthw.archwood_good.ContentRegistry.ITEMS;
+import static com.alexthw.archwood_good.registry.AWGBlockRegistry.BLOCKS;
+import static com.alexthw.archwood_good.registry.AWGBlockRegistry.ITEMS;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ArchwoodGood.MODID)
@@ -19,10 +21,12 @@ public class ArchwoodGood {
         BLOCKS.register(eventBus);
         ITEMS.register(eventBus);
 
-        ContentRegistry.init(eventBus);
-        ItemRegistry.init();
+        AWGBlockRegistry.init(eventBus);
+        AWGItemRegistry.init();
 
-        ContentSetup.registers(eventBus);
+        AWGModSetup.registers(eventBus);
+
+//        FEATURES.register(eventBus);
 
         AWGCreativeTabRegistry.TABS.register(eventBus);
     }

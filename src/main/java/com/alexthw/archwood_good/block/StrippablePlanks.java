@@ -1,4 +1,4 @@
-package com.alexthw.archwood_good.common.block;
+package com.alexthw.archwood_good.block;
 
 import com.hollingsworth.arsnouveau.setup.registry.BlockRegistryWrapper;
 import net.minecraft.world.item.context.UseOnContext;

@@ -2,8 +2,8 @@ package com.alexthw.archwood_good.datagen;
 
 import alexthw.ars_elemental.ArsElemental;
 import com.alexthw.archwood_good.ArchwoodGood;
-import com.alexthw.archwood_good.ContentRegistry;
-import com.alexthw.archwood_good.ItemRegistry;
+import com.alexthw.archwood_good.registry.AWGBlockRegistry;
+import com.alexthw.archwood_good.registry.AWGItemRegistry;
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.common.datagen.BlockStatesDatagen;
 import net.mehvahdjukaar.moonlight.api.set.wood.VanillaWoodChildKeys;
@@ -19,8 +19,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-
-import java.util.Objects;
 
 public class AWGBlockStatesDatagen {
 
@@ -54,15 +52,15 @@ public class AWGBlockStatesDatagen {
                         Block wallHangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.WALL_HANGING_SIGN);
 
                         generateLogFiles(log, models(), this);
-                        if (Objects.nonNull(stripped_log))
+                        if (stripped_log != null)
                             generateStrippedLogFiles(stripped_log, models(), this);
 
-                        if (Objects.nonNull(wood))
+                        if (wood != null)
                             generateWoodFiles(wood, log, models(), this);
-                        if (Objects.nonNull(stripped_wood))
+                        if (stripped_wood != null)
                             generateWoodFiles(stripped_wood, stripped_log, models(), this);
 
-                        if (Objects.nonNull(sapling))
+                        if (sapling != null)
                             simpleBlock(sapling, models()
                                     .cross(Utils.getID(sapling).toString(), Utils.getID(sapling).withPrefix("block/"))
                                     .renderType("cutout")
@@ -77,11 +75,12 @@ public class AWGBlockStatesDatagen {
                                 Utils.getID(planks).withPrefix("block/")
                         );
 
-                        if (Objects.nonNull(leaves))
-                            simpleBlock(leaves);
-                        if (Objects.nonNull(sign))
+                        if (leaves != null) generateLeavesFiles(leaves, models(), this);
+
+                        if (sign != null)
                             signBlock((StandingSignBlock) sign, (WallSignBlock) wallSign, Utils.getID(planks).withPrefix("block/"));
-                        if (Objects.nonNull(hangingSign))
+
+                        if (hangingSign != null)
                             hangingSignBlock((CeilingHangingSignBlock) hangingSign, (WallHangingSignBlock) wallHangingSign, Utils.getID(planks).withPrefix("block/"));
                     }
 
@@ -114,31 +113,31 @@ public class AWGBlockStatesDatagen {
 
                         // LOG
                         getBuilder(Utils.getID(log).toString()).parent(getUncheckedModel(Utils.getID(log)));
-                        if (Objects.nonNull(stripped_log))
+                        if (stripped_log != null)
                             getBuilder(Utils.getID(stripped_log).toString()).parent(getUncheckedModel(Utils.getID(stripped_log)));
 
                         // WOOD
-                        if (Objects.nonNull(wood))
+                        if (wood != null)
                             getBuilder(Utils.getID(wood).toString()).parent(getUncheckedModel(Utils.getID(wood)));
-                        if (Objects.nonNull(stripped_wood))
+                        if (stripped_wood != null)
                             getBuilder(Utils.getID(stripped_wood).toString()).parent(getUncheckedModel(Utils.getID(stripped_wood)));
 
                         // LEAVES
-                        if (Objects.nonNull(leaves))
+                        if (leaves != null)
                             simpleBlockItem(leaves);
 
                         // CHILDREN
-                        if (Objects.nonNull(slab))
+                        if (slab != null)
                             getBuilder(Utils.getID(slab).toString()).parent(getUncheckedModel(Utils.getID(slab)));
-                        if (Objects.nonNull(stairs))
+                        if (stairs != null)
                             getBuilder(Utils.getID(stairs).toString()).parent(getUncheckedModel(Utils.getID(stairs)));
-                        if (Objects.nonNull(sapling))
+                        if (sapling != null)
                             getBuilder(Utils.getID(sapling).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
                                     .texture("layer0", Utils.getID(sapling).withPrefix("block/"));
-                        if (Objects.nonNull(sign))
+                        if (sign != null)
                             getBuilder(Utils.getID(sign).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
                                     .texture("layer0", Utils.getID(sign).withPrefix("item/"));
-                        if (Objects.nonNull(hangingSign))
+                        if (hangingSign != null)
                             getBuilder(Utils.getID(hangingSign).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
                                     .texture("layer0", Utils.getID(hangingSign).withPrefix("item/"));
 
@@ -147,8 +146,8 @@ public class AWGBlockStatesDatagen {
                 }
 
                 // ARCHFRUITS
-                withExistingParent(Utils.getID(ItemRegistry.DAWNBERRY_POD).getPath(), GENERATED).texture("layer0", Utils.getID(ItemRegistry.DAWNBERRY_POD).withPrefix("item/archfruit/"));
-                withExistingParent(Utils.getID(ItemRegistry.LIGHTCHEE_POD).getPath(), GENERATED).texture("layer0", Utils.getID(ItemRegistry.LIGHTCHEE_POD).withPrefix("item/archfruit/"));
+                withExistingParent(Utils.getID(AWGItemRegistry.DAWNBERRY_POD).getPath(), GENERATED).texture("layer0", Utils.getID(AWGItemRegistry.DAWNBERRY_POD).withPrefix("item/archfruit/"));
+                withExistingParent(Utils.getID(AWGItemRegistry.LIGHTCHEE_POD).getPath(), GENERATED).texture("layer0", Utils.getID(AWGItemRegistry.LIGHTCHEE_POD).withPrefix("item/archfruit/"));
 
             }
         });
@@ -199,25 +198,25 @@ public class AWGBlockStatesDatagen {
                     }
                 }
 
-                logBlock(ContentRegistry.FADING_ARCHWOOD_LOG.get());
-                logBlock(ContentRegistry.STRIPPED_FADING_ARCHWOOD_LOG.get());
+                logBlock(AWGBlockRegistry.FADING_ARCHWOOD_LOG.get());
+                logBlock(AWGBlockRegistry.STRIPPED_FADING_ARCHWOOD_LOG.get());
 
-                axisBlock(ContentRegistry.FADING_ARCHWOOD_WOOD.get(),
+                axisBlock(AWGBlockRegistry.FADING_ARCHWOOD_WOOD.get(),
                         ArsNouveau.prefix("block/archwood_log"),
                         ArsNouveau.prefix("block/archwood_log_top")
                 );
-                axisBlock(ContentRegistry.STRIPPED_FADING_ARCHWOOD_WOOD.get(),
+                axisBlock(AWGBlockRegistry.STRIPPED_FADING_ARCHWOOD_WOOD.get(),
                         ArsNouveau.prefix("block/stripped_archwood_log"),
                         ArsNouveau.prefix("block/stripped_archwood_log_top")
                 );
 
-                Block saplingBlock = ContentRegistry.FADING_ARCHWOOD_SAPLING.get();
+                Block saplingBlock = AWGBlockRegistry.FADING_ARCHWOOD_SAPLING.get();
                 simpleBlock(saplingBlock, models()
                         .cross(Utils.getID(saplingBlock).toString(), Utils.getID(saplingBlock).withPrefix("block/"))
                         .renderType("cutout")
                 );
 
-                simpleBlock(ContentRegistry.FADING_ARCHWOOD_LEAVES.get());
+                simpleBlock(AWGBlockRegistry.FADING_ARCHWOOD_LEAVES.get());
 
             }
         });
@@ -239,15 +238,15 @@ public class AWGBlockStatesDatagen {
 
                         simpleBlockItem(planks);
 
-                        if (Objects.nonNull(slab))
+                        if (slab != null)
                             getBuilder(Utils.getID(slab).getPath()).parent(getUncheckedModel(Utils.getID(slab)));
-                        if (Objects.nonNull(stairs))
+                        if (stairs != null)
                             getBuilder(Utils.getID(stairs).getPath()).parent(getUncheckedModel(Utils.getID(stairs)));
 
-                        if (Objects.nonNull(sign))
+                        if (sign != null)
                             getBuilder(Utils.getID(sign).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
                                     .texture("layer0", Utils.getID(sign).withPrefix("item/"));
-                        if (Objects.nonNull(hangingSign))
+                        if (hangingSign != null)
                             getBuilder(Utils.getID(hangingSign).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
                                     .texture("layer0", Utils.getID(hangingSign).withPrefix("item/"));
 
@@ -259,10 +258,10 @@ public class AWGBlockStatesDatagen {
                 getBuilder("archwood_wood").parent(BlockStatesDatagen.getUncheckedModel("archwood_wood"));
                 getBuilder("stripped_archwood_wood").parent(BlockStatesDatagen.getUncheckedModel("stripped_archwood_wood"));
 
-                simpleBlockItem(ContentRegistry.FADING_ARCHWOOD_LEAVES.get());
+                simpleBlockItem(AWGBlockRegistry.FADING_ARCHWOOD_LEAVES.get());
 
-                getBuilder(Utils.getID(ContentRegistry.FADING_ARCHWOOD_SAPLING.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
-                        .texture("layer0", Utils.getID(ContentRegistry.FADING_ARCHWOOD_SAPLING.get()).withPrefix("block/"));
+                getBuilder(Utils.getID(AWGBlockRegistry.FADING_ARCHWOOD_SAPLING.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated"))
+                        .texture("layer0", Utils.getID(AWGBlockRegistry.FADING_ARCHWOOD_SAPLING.get()).withPrefix("block/"));
 
             }
         });
@@ -280,7 +279,7 @@ public class AWGBlockStatesDatagen {
             @Override
             protected void registerStatesAndModels() {
                 WoodType woodType = WoodTypeRegistry.INSTANCE.get(ArsElemental.prefix("yellow_archwood"));
-                if (Objects.nonNull(woodType)) {
+                if (woodType != null) {
                     Block planks = woodType.planks;
                     Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
                     Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
@@ -313,7 +312,7 @@ public class AWGBlockStatesDatagen {
             @Override
             protected void registerModels() {
                 WoodType woodType = WoodTypeRegistry.INSTANCE.get(ArsElemental.prefix("yellow_archwood"));
-                if (Objects.nonNull(woodType)) {
+                if (woodType != null) {
                     Block planks = woodType.planks;
                     Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
                     Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
@@ -322,15 +321,15 @@ public class AWGBlockStatesDatagen {
 
                     simpleBlockItem(planks);
 
-                    if (Objects.nonNull(slab))
+                    if (slab != null)
                         getBuilder(Utils.getID(slab).getPath()).parent(getUncheckedModel(Utils.getID(slab)));
-                    if (Objects.nonNull(stairs))
+                    if (stairs != null)
                         getBuilder(Utils.getID(stairs).getPath()).parent(getUncheckedModel(Utils.getID(stairs)));
 
-                    if (Objects.nonNull(sign))
+                    if (sign != null)
                         getBuilder(Utils.getID(sign).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
                                 .texture("layer0", Utils.getID(sign).withPrefix("item/"));
-                    if (Objects.nonNull(hangingSign))
+                    if (hangingSign != null)
                         getBuilder(Utils.getID(hangingSign).getPath()).parent(new ModelFile.UncheckedModelFile("item/generated"))
                                 .texture("layer0", Utils.getID(hangingSign).withPrefix("item/"));
                 }
@@ -381,34 +380,34 @@ public class AWGBlockStatesDatagen {
 
     /// Generate models/block & blockstates file for WOOD & STRIPPED_WOOD
     public static void generateWoodFiles(Block wood, Block log, BlockModelProvider models, BlockStateProvider blockStateProvider) {
-        ResourceLocation logResLoc = Utils.getID(log).withPrefix("block/");
-        ResourceLocation woodResLoc = Utils.getID(wood).withPrefix("block/");
-        ResourceLocation logId = Utils.getID(wood);
+        ResourceLocation woodId = Utils.getID(wood);
+        ResourceLocation woodFileLoc = woodId.withPrefix("block/");
+        ResourceLocation logFileLoc = Utils.getID(log).withPrefix("block/");
 
         String[] suffixes = {"", "_1", "_2", "_3"};
         for (String suffix : suffixes) {
-            models.cubeColumn(logId.withSuffix(suffix).toString(), logResLoc.withSuffix(suffix), logResLoc.withSuffix(suffix));
-            models.cubeColumnHorizontal(logId.withSuffix("_horizontal" + suffix).toString(), logResLoc.withSuffix(suffix), logResLoc.withSuffix(suffix));
+            models.cubeColumn(woodId.withSuffix(suffix).toString(), logFileLoc.withSuffix(suffix), logFileLoc.withSuffix(suffix));
+            models.cubeColumnHorizontal(woodId.withSuffix("_horizontal" + suffix).toString(), logFileLoc.withSuffix(suffix), logFileLoc.withSuffix(suffix));
         }
 
         blockStateProvider.getVariantBuilder(wood)
                 .partialState().with(BlockStateProperties.AXIS, Direction.Axis.X).addModels(
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_horizontal"))).rotationX(90).rotationY(90).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_horizontal_1"))).rotationX(90).rotationY(90).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_horizontal_2"))).rotationX(90).rotationY(90).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_horizontal_3"))).rotationX(90).rotationY(90).buildLast()
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_horizontal"))).rotationX(90).rotationY(90).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_horizontal_1"))).rotationX(90).rotationY(90).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_horizontal_2"))).rotationX(90).rotationY(90).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_horizontal_3"))).rotationX(90).rotationY(90).buildLast()
                 )
                 .partialState().with(BlockStateProperties.AXIS, Direction.Axis.Y).addModels(
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc )).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_1"))).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_2"))).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_3"))).buildLast()
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc )).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_1"))).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_2"))).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_3"))).buildLast()
                 )
                 .partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z).addModels(
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_horizontal"))).rotationX(90).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_horizontal_1"))).rotationX(90).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_horizontal_2"))).rotationX(90).buildLast(),
-                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodResLoc.withSuffix("_horizontal_3"))).rotationX(90).buildLast()
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_horizontal"))).rotationX(90).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_horizontal_1"))).rotationX(90).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_horizontal_2"))).rotationX(90).buildLast(),
+                        ConfiguredModel.builder().modelFile(models.getExistingFile(woodFileLoc.withSuffix("_horizontal_3"))).rotationX(90).buildLast()
                 );
     }
 
@@ -446,5 +445,24 @@ public class AWGBlockStatesDatagen {
                         ConfiguredModel.builder().modelFile(models.getExistingFile(logResLoc.withSuffix("_horizontal_2"))).rotationX(90).buildLast(),
                         ConfiguredModel.builder().modelFile(models.getExistingFile(logResLoc.withSuffix("_horizontal_3"))).rotationX(90).buildLast()
                 );
+    }
+
+    /// Generate models/block & blockstates file for LEAVES
+    public static void generateLeavesFiles(Block leaves, BlockModelProvider models, BlockStateProvider blockStateProvider) {
+        ResourceLocation leavesId = Utils.getID(leaves);
+        ResourceLocation leavesFileLoc = leavesId.withPrefix("block/");
+
+        String[] suffixes = {"", "_1", "_2"};
+
+        for (String suffix : suffixes) {
+            models.leaves(leavesId.withSuffix(suffix).toString(), leavesFileLoc.withSuffix(suffix));
+        }
+
+        blockStateProvider.getVariantBuilder(leaves).partialState().setModels(
+                ConfiguredModel.builder().modelFile(models.getExistingFile(leavesFileLoc)).buildLast(),
+                ConfiguredModel.builder().modelFile(models.getExistingFile(leavesFileLoc.withSuffix("_1"))).buildLast(),
+                ConfiguredModel.builder().modelFile(models.getExistingFile(leavesFileLoc.withSuffix("_2"))).buildLast()
+        );
+
     }
 }

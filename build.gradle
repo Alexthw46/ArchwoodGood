@@ -167,15 +167,15 @@ dependencies {
 //    implementation "curse.maven:every-integration-628539:7245196"
 //    implementation "curse.maven:selene-499980:7238829"
 
-    implementation("net.mehvahdjukaar:everycomp-neoforge:$everycomp_version:neoforge") {
-        transitive = false
-    }
+//    implementation("net.mehvahdjukaar:everycomp-neoforge:$everycomp_version:neoforge") {
+//        transitive = false
+//    }
     implementation("net.mehvahdjukaar:moonlight-neoforge:$moonlight_version:neoforge") {
         transitive = false
     }
-    implementation("net.mehvahdjukaar:supplementaries-neoforge:$supplementaries_version:neoforge") {
-        transitive = false
-    }
+//    implementation("net.mehvahdjukaar:supplementaries-neoforge:$supplementaries_version:neoforge") {
+//        transitive = false
+//    }
 
     // only need the compileOnly, the runtime dependency is handled by Ars Nouveau
         // TOOLS
@@ -209,7 +209,7 @@ dependencies {
     //implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // cyanide to debug worldgen, localRuntime configuration won't mark is a dependency
-    // localRuntime "curse.maven:cyanide-541676:5782674"
+    // runtimeOnly "curse.maven:cyanide-541676:5782674"
 
 
     // Iris Shader tests

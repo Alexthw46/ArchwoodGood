@@ -33,19 +33,21 @@ public class Datagen {
 
         BlockTagsProvider blockTagsProvider = new AWGBlockTagsProvider(gen, provider, existingFileHelper);
 
+        gen.addProvider(event.includeClient(), new AWGLangDatagen(output, ArchwoodGood.MODID, "en_us"));
         gen.addProvider(event.includeServer(), blockTagsProvider);
         gen.addProvider(event.includeServer(), new AWGItemTagsProvider(gen, provider, blockTagsProvider, existingFileHelper));
         gen.addProvider(event.includeServer(), new RecipeDataGen(output, provider));
         gen.addProvider(event.includeServer(), new AWGLootTables(gen, provider));
+        gen.addProvider(event.includeServer(), new AWGCompostablesProvider(output, provider));
 
         AWGBlockStatesDatagen.gatherDataForAWG(event, gen, existingFileHelper, output);
         AWGBlockStatesDatagen.gatherDataForAN(event, gen, existingFileHelper, output);
         AWGBlockStatesDatagen.gatherDataForAE(event, gen, existingFileHelper, output);
 
         /// Work In Progress - Xel'Bayria
-//        gen.addProvider(event.includeServer(), new AWGPlacedFeatureTagsProvider(output, provider, existingFileHelper));
-
 //        gen.addProvider(event.includeServer(), new AWGWorldgenProvider(output, provider));
+        gen.addProvider(event.includeServer(), new AWGPlacedFeatureTagsProvider(output, provider, existingFileHelper));
+
 //        gen.addProvider(event.includeServer(), new AWGBiomeTagsProvider(output, provider, existingFileHelper));
 
         /// ─────────────────────────────── Worldprovider ───────────────────────────────

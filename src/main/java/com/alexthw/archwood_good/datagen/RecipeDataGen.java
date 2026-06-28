@@ -2,7 +2,7 @@ package com.alexthw.archwood_good.datagen;
 
 import alexthw.ars_elemental.ArsElemental;
 import com.alexthw.archwood_good.ArchwoodGood;
-import com.alexthw.archwood_good.ContentRegistry;
+import com.alexthw.archwood_good.registry.AWGBlockRegistry;
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.setup.registry.BlockRegistry;
 import com.hollingsworth.arsnouveau.setup.registry.ItemsRegistry;
@@ -15,14 +15,17 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
+import static com.alexthw.archwood_good.datagen.AWGItemTagsProvider.tagMap;
 import static com.hollingsworth.arsnouveau.common.datagen.RecipeDatagen.shapedWoodenStairs;
 
 public class RecipeDataGen extends RecipeProvider {
@@ -46,28 +49,33 @@ public class RecipeDataGen extends RecipeProvider {
                 Block planks = woodType.planks;
                 Block slab = woodType.getBlockOfThis(VanillaWoodChildKeys.SLAB);
                 Block stairs = woodType.getBlockOfThis(VanillaWoodChildKeys.STAIRS);
-                Block sapling = woodType.getBlockOfThis(VanillaWoodChildKeys.SAPLING);
+                Block sign = woodType.getBlockOfThis(VanillaWoodChildKeys.SIGN);
+                Block hangingSign = woodType.getBlockOfThis(VanillaWoodChildKeys.HANGING_SIGN);
 
                 Ingredient logTag = Ingredient.of(ItemTags.create(Utils.getID(log).withSuffix("s")));
                 shapelessBuilder(planks, 4).requires(logTag).save(recipeOutput);
 
-                if (Objects.nonNull(wood)) {
+                if (wood != null) {
                     makeWood(log, wood, 3).save(recipeOutput);
                 }
-                if (Objects.nonNull(stripped_wood)) strippedLogToWood(recipeOutput, stripped_log, stripped_wood);
+                if (stripped_wood != null) strippedLogToWood(recipeOutput, stripped_log, stripped_wood);
 
-                if (Objects.nonNull(stairs)) shapedWoodenStairs(recipeOutput, stairs, planks);
-                if (Objects.nonNull(slab)) shapedWoodenSlab(recipeOutput, slab, planks);
+                if (stairs != null) shapedWoodenStairs(recipeOutput, stairs, planks);
+                if (slab != null) shapedWoodenSlab(recipeOutput, slab, planks);
+
+                if (sign != null && planks != null) createSignRecipe(sign, planks, recipeOutput);
+                if (hangingSign != null && stripped_log != null) hangingSign(recipeOutput, hangingSign.asItem(), stripped_log.asItem());
+
             }
 
         }
 
-
-//                shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get()).requires(Ingredient.of(archwoodPlanks)).save(recipeOutput); //TODO: need an item to bleach colored planks into plain planks
         shapelessBuilder(BlockRegistry.ARCHWOOD_PLANK.get(), 4).requires(ARCHWOOD_LOGS).save(recipeOutput);
 
-        makeWood(ContentRegistry.FADING_ARCHWOOD_LOG, ContentRegistry.FADING_ARCHWOOD_WOOD.get(), 3).save(recipeOutput);
-        strippedLogToWood(recipeOutput, ContentRegistry.STRIPPED_FADING_ARCHWOOD_LOG, ContentRegistry.STRIPPED_FADING_ARCHWOOD_WOOD.get());
+        makeWood(AWGBlockRegistry.FADING_ARCHWOOD_LOG, AWGBlockRegistry.FADING_ARCHWOOD_WOOD.get(), 3).save(recipeOutput);
+        strippedLogToWood(recipeOutput, AWGBlockRegistry.STRIPPED_FADING_ARCHWOOD_LOG, AWGBlockRegistry.STRIPPED_FADING_ARCHWOOD_WOOD.get());
+
+        hangingSign(recipeOutput, ItemsRegistry.ARCHWOOD_HANGING_SIGN, AWGBlockRegistry.STRIPPED_FADING_ARCHWOOD_LOG.asItem());
 
     }
 
@@ -94,9 +102,27 @@ public class RecipeDataGen extends RecipeProvider {
                 .pattern("xx ").define('x', logs);
     }
 
-    private static void strippedLogToWood(RecipeOutput recipeConsumer, ItemLike stripped, ItemLike output) {
+    private static void strippedLogToWood(RecipeOutput recipeOutput, ItemLike stripped, ItemLike output) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, output, 3).define('#', stripped).pattern("##").pattern("##").group("bark")
                 .unlockedBy("has_journal", InventoryChangeTrigger.TriggerInstance.hasItems(ItemsRegistry.WORN_NOTEBOOK))
-                .save(recipeConsumer);
+                .save(recipeOutput);
+    }
+
+    public static void createSignRecipe(Block sign, Block planks, RecipeOutput recipeOutput) {
+        signBuilder(sign.asItem(), Ingredient.of(planks.asItem())).unlockedBy("has_journal", InventoryChangeTrigger.TriggerInstance.hasItems(planks.asItem())).save(recipeOutput);
+    }
+
+    public static void createHangingSignRecipe(Block hangingSign, String woodTypeId, RecipeOutput recipeOutput) {
+        TagKey<Item> tagKey = tagMap.get(woodTypeId);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, hangingSign.asItem(), 6)
+        .group("hanging_sign")
+        .define('#', Ingredient.of(tagKey))
+        .define('X', Items.CHAIN)
+        .pattern("X X")
+        .pattern("###")
+        .pattern("###")
+        .unlockedBy("has_journal", InventoryChangeTrigger.TriggerInstance.hasItems(ItemsRegistry.WORN_NOTEBOOK))
+        .save(recipeOutput);
     }
 }

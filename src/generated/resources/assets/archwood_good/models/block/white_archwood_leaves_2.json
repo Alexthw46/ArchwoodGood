@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/leaves",
   "textures": {
-    "all": "archwood_good:block/white_archwood_leaves"
+    "all": "archwood_good:block/white_archwood_leaves_2"
   }
 }

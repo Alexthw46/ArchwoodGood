@@ -1,7 +1,7 @@
 package com.alexthw.archwood_good.integration;
 
 import alexthw.ars_elemental.registry.ModItems;
-import com.alexthw.archwood_good.common.block.StrippablePlanks;
+import com.alexthw.archwood_good.block.StrippablePlanks;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
@@ -12,8 +12,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.function.Supplier;
 
-import static com.alexthw.archwood_good.ContentRegistry.WOOD_PROP;
-import static com.alexthw.archwood_good.ContentRegistry.YELLOW_ARCHWOOD;
+import static com.alexthw.archwood_good.registry.AWGBlockRegistry.WOOD_PROP;
+import static com.alexthw.archwood_good.registry.AWGBlockRegistry.YELLOW_ARCHWOOD;
 import static com.hollingsworth.arsnouveau.setup.registry.BlockRegistry.ARCHWOOD_PLANK;
 import static com.hollingsworth.arsnouveau.setup.registry.ItemsRegistry.defaultItemProperties;
 
