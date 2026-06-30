@@ -15,7 +15,10 @@ public class AWGModSetup {
     }
 
     public static void addBlocksToTile(BlockEntityTypeAddBlocksEvent event) {
-        // Archwood Good
+
+        //      ┌──────────────────────────────────────────────────────────┐
+        //      │                      Archwood Good                       │
+        //      └──────────────────────────────────────────────────────────┘
         event.modify(BlockEntityType.SIGN, AWGBlockRegistry.ORANGE_ARCHWOOD_SIGN.get(), AWGBlockRegistry.ORANGE_ARCHWOOD_WALL_SIGN.get());
         event.modify(BlockEntityType.HANGING_SIGN, AWGBlockRegistry.ORANGE_ARCHWOOD_HANGING_SIGN.get(), AWGBlockRegistry.ORANGE_ARCHWOOD_HANGING_WALL_SIGN.get());
 
