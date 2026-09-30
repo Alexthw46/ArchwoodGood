@@ -4,7 +4,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0+'
+    id 'net.neoforged.moddev' version '2.0.+'
 }
 
 base {
@@ -28,12 +28,15 @@ tasks.named('wrapper', Wrapper).configure {
 }
 
 neoForge {
+//    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    validateAccessTransformers = true
+
     // Specify the version of NeoForge to use.
     version = project.neo_version
 
     parchment {
+        minecraftVersion = project.minecraft_version
         mappingsVersion = project.parchment_version
-        minecraftVersion = "1.21"
     }
 
     runs {
@@ -98,10 +101,6 @@ neoForge {
 configurations {
     runtimeClasspath.extendsFrom localRuntime
 }
-
-//minecraft.accessTransformers.files(
-//       file('src/main/resources/META-INF/accesstransformer.cfg')
-//)
 
 sourceSets.main.resources { srcDir "src/generated/resources" }
 
